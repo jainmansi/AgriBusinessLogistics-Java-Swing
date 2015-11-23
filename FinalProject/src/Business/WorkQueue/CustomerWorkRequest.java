@@ -5,10 +5,20 @@
  */
 package Business.WorkQueue;
 
+import Business.Product.Product;
+
 /**
  *
  * @author user
  */
 public class CustomerWorkRequest {
-    
+    private Product product;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }  
 }

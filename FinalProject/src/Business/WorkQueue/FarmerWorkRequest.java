@@ -9,6 +9,23 @@ package Business.WorkQueue;
  *
  * @author user
  */
-public class FarmerWorkRequest {
-    
+public class FarmerWorkRequest extends WorkRequest{
+    private int Quantity;
+    private String productName;
+
+    public int getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(int Quantity) {
+        this.Quantity = Quantity;
+    }   
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }  
 }

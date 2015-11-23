@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Business.DB4OUtil;
 
 import Business.ConfigureASystem;
@@ -7,14 +12,12 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.ta.TransparentPersistenceSupport;
-import com.sun.org.apache.xml.internal.security.signature.ObjectContainer;
 
 /**
  *
- * @author rrheg
+ * @author user
  */
 public class DB4OUtil {
-
     private static final String FILENAME = "C:\\DataBank.db4o"; // path to the data store
     private static DB4OUtil dB4OUtil;
     

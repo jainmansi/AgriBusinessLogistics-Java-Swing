@@ -5,10 +5,30 @@
  */
 package Business.WorkQueue;
 
+import Business.Product.Product;
+
 /**
  *
  * @author user
  */
-public class RetailerWorkRequest {
+public class RetailerWorkRequest extends WorkRequest{
+    private int Quantity;
+    private String productName;
+
+    public int getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(int Quantity) {
+        this.Quantity = Quantity;
+    }   
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }  
     
 }

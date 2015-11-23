@@ -5,17 +5,30 @@
  */
 package UserInterface.FarmerRole;
 
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author user
  */
+
 public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form FarmerWorkAreaJPanel
      */
-    public FarmerWorkAreaJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount userAccount;
+    private EcoSystem business;
+    public FarmerWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem business) {
         initComponents();
+        this.userAccount = userAccount;
+        this.userProcessContainer = userProcessContainer;
+        this.business = business;
     }
 
     /**
@@ -27,19 +40,120 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        viewReportBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        manageOrdersJPanel = new javax.swing.JButton();
+        manageProductsBtn = new javax.swing.JButton();
+        manageInventoryJPanel = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        viewReportBtn.setText("View Report");
+        viewReportBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        viewReportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewReportBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
+        jLabel2.setText("Farmer Work Area");
+
+        manageOrdersJPanel.setText("Manage Orders");
+        manageOrdersJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageOrdersJPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageOrdersJPanelActionPerformed(evt);
+            }
+        });
+
+        manageProductsBtn.setText("Manage Products");
+        manageProductsBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageProductsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageProductsBtnActionPerformed(evt);
+            }
+        });
+
+        manageInventoryJPanel.setText("Manage Inventory");
+        manageInventoryJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageInventoryJPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageInventoryJPanelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(manageProductsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(76, 76, 76))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(36, 36, 36)
+                .addComponent(manageProductsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void viewReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReportBtnActionPerformed
+        ViewReportJPanel viewReportFarmJPanel = new ViewReportJPanel(userProcessContainer, userAccount, business);
+        userProcessContainer.add("viewReportFarmJPanel", viewReportFarmJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_viewReportBtnActionPerformed
+
+    private void manageOrdersJPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrdersJPanelActionPerformed
+        ManageOrderJPanel manageOrderFarmJPanel = new ManageOrderJPanel(userProcessContainer, userAccount, business);
+        userProcessContainer.add("manageOrderFarmJPanel", manageOrderFarmJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_manageOrdersJPanelActionPerformed
+
+    private void manageProductsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageProductsBtnActionPerformed
+        ManageProductsJPanel manageProductsFarmJPanel = new ManageProductsJPanel(userProcessContainer, userAccount);
+        userProcessContainer.add("manageProductsFarmJPanel", manageProductsFarmJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_manageProductsBtnActionPerformed
+
+    private void manageInventoryJPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInventoryJPanelActionPerformed
+        ManageInventoryJPanel manageInventoryFarmJPanel = new ManageInventoryJPanel(userProcessContainer, userAccount);
+        userProcessContainer.add("manageInventoryFarmJPanel", manageInventoryFarmJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_manageInventoryJPanelActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton manageInventoryJPanel;
+    private javax.swing.JButton manageOrdersJPanel;
+    private javax.swing.JButton manageProductsBtn;
+    private javax.swing.JButton viewReportBtn;
     // End of variables declaration//GEN-END:variables
 }

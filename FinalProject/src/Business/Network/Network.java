@@ -11,7 +11,7 @@ import Business.Enterprise.EnterpriseDirectory;
  *
  * @author user
  */
-public class Network {
+public class Network{
     private String name;
     private EnterpriseDirectory enterpriseDirectory;
 

@@ -5,6 +5,10 @@
  */
 package UserInterface.SupplierRole;
 
+import Business.Enterprise.Enterprise;
+import Business.UserAccount.UserAccount;
+import javax.swing.JPanel;
+
 /**
  *
  * @author user
@@ -14,8 +18,14 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
     /**
      * Creates new form PendingOrdersJPanel
      */
-    public PendingOrdersJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount account;
+    private Enterprise enterprise;
+    public PendingOrdersJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
         initComponents();
+        this.account = account;
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
     }
 
     /**

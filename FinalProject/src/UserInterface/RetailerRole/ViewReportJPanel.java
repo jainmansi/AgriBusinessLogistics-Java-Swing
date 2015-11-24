@@ -5,6 +5,10 @@
  */
 package UserInterface.RetailerRole;
 
+import Business.Enterprise.Enterprise;
+import Business.UserAccount.UserAccount;
+import javax.swing.JPanel;
+
 /**
  *
  * @author user
@@ -14,8 +18,15 @@ public class ViewReportJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewReportJPanel
      */
-    public ViewReportJPanel() {
+    
+    private JPanel userProcessContainer;
+    private UserAccount account;
+    private Enterprise enterprise;
+    public ViewReportJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
         initComponents();
+        this.account = account;
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
     }
 
     /**

@@ -18,13 +18,13 @@ public class ProductCatalog {
         productList = new ArrayList<Product>();
     }
 
-    public ArrayList<Product> getProductCatalog() {
+    public ArrayList<Product> getProductList() {
         return productList;
     }
 
-    public void setProductCatalog(ArrayList<Product> productCatalog) {
-        this.productList = productCatalog;
-    }  
+    public void setProductList(ArrayList<Product> productList) {
+        this.productList = productList;
+    }     
     
     public Product addProduct(){
         Product p = new Product();

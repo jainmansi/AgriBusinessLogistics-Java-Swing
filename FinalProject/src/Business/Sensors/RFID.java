@@ -7,13 +7,14 @@ package Business.Sensors;
 
 import Business.UserAccount.UserAccount;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
  * @author user
  */
 public class RFID {
-    private int rfid;
+    private String rfid;
     private UserAccount supplier;
     private UserAccount retailer;
     private UserAccount distributor;
@@ -29,12 +30,25 @@ public class RFID {
     private Date retailerReceiveDate;
     private Date productSoldDate;
 
-    public int getRfid() {
+    public String getRfid() {
         return rfid;
     }
 
-    public void setRfid(int rfid) {
+    public void setRfid(String rfid) {
         this.rfid = rfid;
+    }
+    
+    public RFID(){
+        rfid = getRandomHexString();
+    }
+    
+    private String getRandomHexString(){
+        Random r = new Random();
+        StringBuffer sb = new StringBuffer();
+        while(sb.length() < 6){
+            sb.append(Integer.toHexString(r.nextInt()));
+        }
+        return sb.toString().substring(0, 6);
     }
 
     public UserAccount getSupplier() {

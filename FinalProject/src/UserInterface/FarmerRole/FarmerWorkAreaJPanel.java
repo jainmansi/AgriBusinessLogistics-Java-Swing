@@ -5,7 +5,6 @@
  */
 package UserInterface.FarmerRole;
 
-import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -22,13 +21,13 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form FarmerWorkAreaJPanel
      */
     private JPanel userProcessContainer;
-    private UserAccount userAccount;
-    private EcoSystem business;
-    public FarmerWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem business) {
+    private UserAccount account;
+    private Enterprise enterprise;
+    public FarmerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
         initComponents();
-        this.userAccount = userAccount;
+        this.account = account;
         this.userProcessContainer = userProcessContainer;
-        this.business = business;
+        this.enterprise = enterprise;
     }
 
     /**
@@ -61,7 +60,7 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Farmer Work Area");
 
-        manageOrdersJPanel.setText("Manage Orders");
+        manageOrdersJPanel.setText("Manage All Orders");
         manageOrdersJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         manageOrdersJPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,7 +68,7 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        manageProductsBtn.setText("Manage Products");
+        manageProductsBtn.setText("Manage Product Catalog");
         manageProductsBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         manageProductsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,7 +76,7 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        manageInventoryJPanel.setText("Manage Inventory");
+        manageInventoryJPanel.setText("Manage Warehouse");
         manageInventoryJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         manageInventoryJPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,57 +91,57 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(manageProductsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(72, 72, 72)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(76, 76, 76))
+                        .addGap(122, 122, 122)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(manageProductsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                            .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(viewReportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(21, 21, 21)
                 .addComponent(jLabel2)
-                .addGap(36, 36, 36)
+                .addGap(34, 34, 34)
                 .addComponent(manageProductsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addGap(63, 63, 63))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReportBtnActionPerformed
-        ViewReportJPanel viewReportFarmJPanel = new ViewReportJPanel(userProcessContainer, userAccount, business);
+        ViewReportJPanel viewReportFarmJPanel = new ViewReportJPanel(userProcessContainer, account, enterprise);
         userProcessContainer.add("viewReportFarmJPanel", viewReportFarmJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_viewReportBtnActionPerformed
 
     private void manageOrdersJPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrdersJPanelActionPerformed
-        ManageOrderJPanel manageOrderFarmJPanel = new ManageOrderJPanel(userProcessContainer, userAccount, business);
+        ManageOrderJPanel manageOrderFarmJPanel = new ManageOrderJPanel(userProcessContainer, account, enterprise);
         userProcessContainer.add("manageOrderFarmJPanel", manageOrderFarmJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageOrdersJPanelActionPerformed
 
     private void manageProductsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageProductsBtnActionPerformed
-        ManageProductsJPanel manageProductsFarmJPanel = new ManageProductsJPanel(userProcessContainer, userAccount);
+        ManageProductsJPanel manageProductsFarmJPanel = new ManageProductsJPanel(userProcessContainer, account);
         userProcessContainer.add("manageProductsFarmJPanel", manageProductsFarmJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageProductsBtnActionPerformed
 
     private void manageInventoryJPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInventoryJPanelActionPerformed
-        ManageInventoryJPanel manageInventoryFarmJPanel = new ManageInventoryJPanel(userProcessContainer, userAccount);
+        ManageInventoryJPanel manageInventoryFarmJPanel = new ManageInventoryJPanel(userProcessContainer, account);
         userProcessContainer.add("manageInventoryFarmJPanel", manageInventoryFarmJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

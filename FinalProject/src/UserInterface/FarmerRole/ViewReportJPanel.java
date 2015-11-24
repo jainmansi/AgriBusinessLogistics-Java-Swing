@@ -5,7 +5,7 @@
  */
 package UserInterface.FarmerRole;
 
-import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
 
@@ -20,12 +20,12 @@ public class ViewReportJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private UserAccount userAccount;
-    private EcoSystem business;
-    public ViewReportJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem business) {
+    private Enterprise enterprise;
+    public ViewReportJPanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise) {
         initComponents();
         this.userAccount = userAccount;
         this.userProcessContainer = userProcessContainer;
-        this.business = business;
+        this.enterprise = enterprise;
     }
 
     /**

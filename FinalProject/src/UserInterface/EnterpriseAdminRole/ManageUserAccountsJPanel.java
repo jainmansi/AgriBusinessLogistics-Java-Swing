@@ -270,15 +270,11 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
         String password = passwordTxtField.getText();
         Organization organization = (Organization) organizationComboBox.getSelectedItem();
         Person person = (Person) employeeComboBox.getSelectedItem();
-        Role role = (Role) roleComboBox.getSelectedItem();
-        if(!(role instanceof CustomerRole) || !(role instanceof FDARole) || !(role instanceof DriverRole)){            
-            UserAccount ua = organization.getUserAccountDirectory().createUserAccount(userName, password, person, role);
-            UserAccountPlus uap = new UserAccountPlus();
-            ua = (UserAccount) uap;
-        }
-        else{
-            organization.getUserAccountDirectory().createUserAccount(userName, password, person, role);
-        }
+        Role role = (Role) roleComboBox.getSelectedItem();     
+        
+        UserAccount ua = organization.getUserAccountDirectory().createUserAccount(userName, password, person, role);
+        ua.checkType(ua);
+        
         populateData();
     }//GEN-LAST:event_createBtnActionPerformed
 

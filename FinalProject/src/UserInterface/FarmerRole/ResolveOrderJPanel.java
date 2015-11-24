@@ -5,8 +5,7 @@
  */
 package UserInterface.FarmerRole;
 
-import Business.EcoSystem;
-import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -20,13 +19,14 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
      * Creates new form ResolveOrderJPanel
      */
     private JPanel userProcessContainer;
-    private UserAccount userAccount;
-    private EcoSystem business;
-    public ResolveOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem business) {
+    private WorkRequest workRequest;
+    private ManageOrderJPanel mojp;
+    public ResolveOrderJPanel(JPanel userProcessContainer, WorkRequest workRequest, ManageOrderJPanel mojp) {
         initComponents();
-        this.userAccount = userAccount;
         this.userProcessContainer = userProcessContainer;
-        this.business = business;
+        this.workRequest = workRequest;
+        this.mojp = mojp;
+        supplierNameTxtField.setText(workRequest.getSender().getPerson().getName());
     }
 
     /**
@@ -40,10 +40,11 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        supplierNameTxtField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        messageTxtField = new javax.swing.JTextField();
         backBtn = new javax.swing.JButton();
+        resolveBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -52,15 +53,15 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Resolve Order");
 
-        jLabel1.setText("Product Name:");
+        jLabel1.setText("Supplier Name:");
 
-        jTextField1.setEditable(false);
+        supplierNameTxtField.setEditable(false);
 
         jLabel3.setText("Message to Supplier:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        messageTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                messageTxtFieldActionPerformed(evt);
             }
         });
 
@@ -69,6 +70,14 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backBtnActionPerformed(evt);
+            }
+        });
+
+        resolveBtn.setText("Resolve!");
+        resolveBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        resolveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resolveBtnActionPerformed(evt);
             }
         });
 
@@ -88,12 +97,14 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel1))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                            .addComponent(jTextField1))
+                            .addComponent(messageTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                            .addComponent(supplierNameTxtField))
                         .addGap(62, 62, 62))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91)
+                .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,26 +114,38 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(supplierNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(messageTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(backBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void messageTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageTxtFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_messageTxtFieldActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         userProcessContainer.remove(this);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        mojp.populateOrderTable();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void resolveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resolveBtnActionPerformed
+        workRequest.setStatus("completed");
+        workRequest.setMessage(messageTxtField.getText());
+    }//GEN-LAST:event_resolveBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -130,7 +153,8 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField messageTxtField;
+    private javax.swing.JButton resolveBtn;
+    private javax.swing.JTextField supplierNameTxtField;
     // End of variables declaration//GEN-END:variables
 }

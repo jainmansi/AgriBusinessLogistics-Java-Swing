@@ -23,38 +23,38 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="manageInventoryJPanel" alignment="0" min="-2" pref="121" max="-2" attributes="0"/>
-                          <Component id="manageOrdersJPanel" alignment="0" min="-2" pref="121" max="-2" attributes="0"/>
-                          <Component id="manageProductsBtn" alignment="0" min="-2" pref="121" max="-2" attributes="0"/>
-                          <Component id="viewReportBtn" alignment="0" min="-2" pref="121" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" pref="251" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="manageProductsBtn" pref="149" max="32767" attributes="0"/>
+                          <Component id="manageInventoryJPanel" max="32767" attributes="0"/>
+                          <Component id="manageOrdersJPanel" max="32767" attributes="0"/>
+                          <Component id="viewReportBtn" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="manageProductsBtn" min="-2" pref="33" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="manageInventoryJPanel" min="-2" pref="33" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="manageOrdersJPanel" min="-2" pref="33" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="viewReportBtn" min="-2" pref="33" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -89,7 +89,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="manageOrdersJPanel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Manage Orders"/>
+        <Property name="text" type="java.lang.String" value="Manage All Orders"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
             <EtchetBorder/>
@@ -102,7 +102,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="manageProductsBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Manage Products"/>
+        <Property name="text" type="java.lang.String" value="Manage Product Catalog"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
             <EtchetBorder/>
@@ -115,7 +115,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="manageInventoryJPanel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Manage Inventory"/>
+        <Property name="text" type="java.lang.String" value="Manage Warehouse"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
             <EtchetBorder/>

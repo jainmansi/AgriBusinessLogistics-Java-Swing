@@ -5,6 +5,11 @@
  */
 package UserInterface.RetailerRole;
 
+import Business.Enterprise.Enterprise;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author user
@@ -14,8 +19,14 @@ public class RetailerWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form RetailerWorkAreaJPanel
      */
-    public RetailerWorkAreaJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount account;
+    private Enterprise enterprise;
+    public RetailerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
         initComponents();
+        this.account = account;
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
     }
 
     /**
@@ -28,33 +39,47 @@ public class RetailerWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        viewReportsBtn = new javax.swing.JButton();
+        manageWarehouseBtn = new javax.swing.JButton();
+        manageOrdersBtn = new javax.swing.JButton();
+        manageProdCatBtn = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(96, 125, 139));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Retailer Work Area");
 
-        jButton1.setText("View Reports");
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        viewReportsBtn.setText("View Reports");
+        viewReportsBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        viewReportsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                viewReportsBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Manage Inventory");
-        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        manageWarehouseBtn.setText("Manage Warehouse");
+        manageWarehouseBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageWarehouseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                manageWarehouseBtnActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Manage Orders");
-        jButton3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageOrdersBtn.setText("Manage Orders");
+        manageOrdersBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageOrdersBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageOrdersBtnActionPerformed(evt);
+            }
+        });
+
+        manageProdCatBtn.setText("Manage Product Catalog");
+        manageProdCatBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageProdCatBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageProdCatBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -63,44 +88,70 @@ public class RetailerWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
+                        .addGap(112, 112, 112)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(88, 88, 88))
+                        .addGap(55, 55, 55)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(manageProdCatBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(manageOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(102, 102, 102)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(viewReportsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(manageWarehouseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(55, 55, 55)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(manageProdCatBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manageWarehouseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(manageOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewReportsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void viewReportsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReportsBtnActionPerformed
+        ViewReportJPanel viewReportRetailerJPanel = new ViewReportJPanel(userProcessContainer, account, enterprise);
+        userProcessContainer.add("viewReportRetailerJPanel", viewReportRetailerJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_viewReportsBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void manageWarehouseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageWarehouseBtnActionPerformed
+        ManageInventoryJPanel manageInventoryRetailerJPanel = new ManageInventoryJPanel(userProcessContainer, account);
+        userProcessContainer.add("manageInventoryRetailerJPanel", manageInventoryRetailerJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_manageWarehouseBtnActionPerformed
+
+    private void manageProdCatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageProdCatBtnActionPerformed
+        ManageProductsJPanel manageProductsRetailerJPanel = new ManageProductsJPanel(userProcessContainer, account);
+        userProcessContainer.add("manageProductsRetailerJPanel", manageProductsRetailerJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_manageProdCatBtnActionPerformed
+
+    private void manageOrdersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrdersBtnActionPerformed
+        ManageOrdersJPanel manageOrdersRetailerJPanel = new ManageOrdersJPanel(userProcessContainer, account, enterprise);
+        userProcessContainer.add("manageOrdersRetailerJPanel", manageOrdersRetailerJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_manageOrdersBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton manageOrdersBtn;
+    private javax.swing.JButton manageProdCatBtn;
+    private javax.swing.JButton manageWarehouseBtn;
+    private javax.swing.JButton viewReportsBtn;
     // End of variables declaration//GEN-END:variables
 }

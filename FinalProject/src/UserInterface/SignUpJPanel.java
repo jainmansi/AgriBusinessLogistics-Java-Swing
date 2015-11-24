@@ -14,6 +14,7 @@ import Business.Organization.Organization;
 import Business.Person.Person;
 import Business.Role.CustomerRole;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -84,6 +85,7 @@ public class SignUpJPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         countryComboBox = new javax.swing.JComboBox();
+        backBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -142,6 +144,14 @@ public class SignUpJPanel extends javax.swing.JPanel {
             }
         });
 
+        backBtn.setText("<<Back");
+        backBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,11 +172,14 @@ public class SignUpJPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel2)))
                             .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(showCaptchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(90, 90, 90)
                                 .addComponent(jLabel7))
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(showCaptchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(76, 76, 76)
+                                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(reenterTxtField, javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,6 +230,8 @@ public class SignUpJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -256,10 +271,13 @@ public class SignUpJPanel extends javax.swing.JPanel {
         else{
             JOptionPane.showMessageDialog(null, "Incorrect captcha or passwords do not match", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
         captcha = generateCaptcha();
         showCaptchTxtField.setText(captcha);
         resetFields();
-        dB4OUtil.storeSystem(system);
+        dB4OUtil.storeSystem(system);            
+        JOptionPane.showMessageDialog(null, "Account successfully created. You can now login!");
+
     }//GEN-LAST:event_registerBtnActionPerformed
 
     private void resetFields(){
@@ -274,8 +292,15 @@ public class SignUpJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_countryComboBoxActionPerformed
 
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backBtn;
     private javax.swing.JTextField captchaTxtField;
     private javax.swing.JComboBox countryComboBox;
     private javax.swing.JLabel jLabel1;

@@ -5,10 +5,14 @@
  */
 package UserInterface.FarmerRole;
 
-import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.FarmerOrganization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,12 +25,30 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private UserAccount userAccount;
-    private EcoSystem business;
-    public ManageOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem business) {
+    private Enterprise enterprise;
+
+    public ManageOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = userAccount;
-        this.business = business;
+        this.enterprise = enterprise;
+        populateOrderTable();
+    }
+
+    public void populateOrderTable() {
+        DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
+
+        model.setRowCount(0);
+        
+                for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()) {
+                    Object[] row = new Object[4];
+                    row[0] = request;
+                    row[1] = request.getSender().getPerson().getName();
+                    row[2] = request.getReceiver() == null ? null : request.getReceiver().getPerson().getName();
+                    row[3] = request.getStatus();
+
+                    model.addRow(row);
+        }
     }
 
     /**
@@ -39,7 +61,7 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        orderTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         newOrderBtn = new javax.swing.JButton();
         resolveBtn = new javax.swing.JButton();
@@ -47,7 +69,7 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        orderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -63,12 +85,12 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane1.setViewportView(orderTable);
+        if (orderTable.getColumnModel().getColumnCount() > 0) {
+            orderTable.getColumnModel().getColumn(0).setResizable(false);
+            orderTable.getColumnModel().getColumn(1).setResizable(false);
+            orderTable.getColumnModel().getColumn(2).setResizable(false);
+            orderTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
@@ -142,7 +164,7 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void newOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newOrderBtnActionPerformed
-        NewOrderJPanel newOrderFarmJPanel = new NewOrderJPanel(userProcessContainer, userAccount, business);
+        NewOrderJPanel newOrderFarmJPanel = new NewOrderJPanel(userProcessContainer, userAccount, enterprise, this);
         userProcessContainer.add("newOrderFarmJPanel", newOrderFarmJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -155,8 +177,18 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void resolveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resolveBtnActionPerformed
-        ResolveOrderJPanel resolveOrderFarmJPanel = new ResolveOrderJPanel(userProcessContainer, userAccount, business);
-        userProcessContainer.add("resolveOrderFarmJPanel", resolveOrderFarmJPanel);
+        int selectedRow = orderTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)orderTable.getValueAt(selectedRow, 0);
+     
+        request.setStatus("Processing");
+        
+        ResolveOrderJPanel resolveOrderJPanel = new ResolveOrderJPanel(userProcessContainer, request, this);
+        userProcessContainer.add("processWorkRequestJPanel", resolveOrderJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_resolveBtnActionPerformed
@@ -166,8 +198,8 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton newOrderBtn;
+    private javax.swing.JTable orderTable;
     private javax.swing.JButton resolveBtn;
     // End of variables declaration//GEN-END:variables
 }

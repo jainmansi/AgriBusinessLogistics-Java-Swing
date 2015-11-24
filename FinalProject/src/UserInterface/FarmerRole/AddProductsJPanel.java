@@ -5,6 +5,8 @@
  */
 package UserInterface.FarmerRole;
 
+import Business.Inventory.InventoryItem;
+import Business.Product.Product;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -19,11 +21,13 @@ public class AddProductsJPanel extends javax.swing.JPanel {
      * Creates new form AddProductsJPanel
      */
     private JPanel userProcessContainer;
-    private UserAccount userAccount;
-    public AddProductsJPanel(JPanel userProcessContainer, UserAccount userAccount) {
+    private UserAccount account;
+    private ManageProductsJPanel mpjp;
+    public AddProductsJPanel(JPanel userProcessContainer, UserAccount account, ManageProductsJPanel mpjp) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.userAccount = userAccount;
+        this.account = account;
+        this.mpjp = mpjp;
     }
 
     /**
@@ -37,9 +41,11 @@ public class AddProductsJPanel extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        prodNameTxtField = new javax.swing.JTextField();
+        addBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        priceTxtField = new javax.swing.JTextField();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(96, 125, 139));
@@ -48,14 +54,27 @@ public class AddProductsJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Product Name:");
 
-        jButton1.setText("Add");
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        addBtn.setText("Add");
+        addBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         backBtn.setText("<< Back");
         backBtn.setBorder(new javax.swing.border.MatteBorder(null));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Price:");
+
+        priceTxtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                priceTxtFieldActionPerformed(evt);
             }
         });
 
@@ -70,15 +89,19 @@ public class AddProductsJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1))
                                 .addGap(48, 48, 48)
-                                .addComponent(jTextField1))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(prodNameTxtField)
+                                    .addComponent(priceTxtField)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(162, 162, 162)
+                        .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(113, 113, 113))
         );
         layout.setVerticalGroup(
@@ -89,27 +112,50 @@ public class AddProductsJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(prodNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(priceTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         userProcessContainer.remove(this);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        mpjp.populateProductTable();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backBtnActionPerformed
 
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        String prodName = prodNameTxtField.getText();
+        int price = (Integer.parseInt(priceTxtField.getText()));
+        Product p = account.getProductCatalog().addProduct();
+        p.setName(prodName);
+        p.setPrice(price);
+        
+        InventoryItem ii = account.getInventory().addInventory();
+        ii.setProduct(p);
+        ii.setName(prodName);
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void priceTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_priceTxtFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBtn;
     private javax.swing.JButton backBtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField priceTxtField;
+    private javax.swing.JTextField prodNameTxtField;
     // End of variables declaration//GEN-END:variables
 }

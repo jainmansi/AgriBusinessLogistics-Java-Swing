@@ -5,6 +5,7 @@
  */
 package Business.WorkQueue;
 
+import Business.Product.Product;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
 
@@ -19,6 +20,7 @@ public abstract class WorkRequest {
     private String status;
     private Date requestDate;
     private Date resolveDate;
+    private Product product;
 
     public String getMessage() {
         return message;

@@ -5,9 +5,12 @@
  */
 package UserInterface.FarmerRole;
 
+import Business.Product.Product;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,11 +22,24 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
      * Creates new form ManageProductsJPanel
      */
     private JPanel userProcessContainer;
-    private UserAccount userAccount;
-    public ManageProductsJPanel(JPanel userProcessContainer, UserAccount userAccount) {
+    private UserAccount account;
+    public ManageProductsJPanel(JPanel userProcessContainer, UserAccount account) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.userAccount = userAccount;
+        this.account = account;
+        populateProductTable();
+    }
+    
+    public void populateProductTable(){
+        DefaultTableModel dtm = (DefaultTableModel) productTable.getModel();
+        dtm.setRowCount(0);
+            for (Product p : account.getProductCatalog().getProductList()) {
+                Object row[] = new Object[3];
+                row[0] = p;
+                row[1] = p.getId();
+                row[2] = p.getPrice();
+                dtm.addRow(row);
+        }
     }
 
     /**
@@ -44,6 +60,11 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
 
         deleteBtn.setText("Delete Product");
         deleteBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,11 +151,22 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        AddProductsJPanel addProductsFarmJPanel = new AddProductsJPanel(userProcessContainer, userAccount);
+        AddProductsJPanel addProductsFarmJPanel = new AddProductsJPanel(userProcessContainer, account, this);
         userProcessContainer.add("addProductsFarmJPanel", addProductsFarmJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_addBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        int selectedRow = productTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            Product product = (Product) productTable.getValueAt(selectedRow, 0);
+            account.getProductCatalog().removeProduct(product);
+        } else {
+            JOptionPane.showMessageDialog(null, "Kindly select a row");
+        }
+        populateProductTable();
+    }//GEN-LAST:event_deleteBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

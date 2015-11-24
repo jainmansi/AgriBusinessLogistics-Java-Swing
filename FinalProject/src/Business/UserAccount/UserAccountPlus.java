@@ -13,21 +13,21 @@ import Business.Product.ProductCatalog;
  * @author user
  */
 public class UserAccountPlus extends UserAccount{
-    private ProductCatalog productList;
+    private ProductCatalog productCatalog;
     private Inventory inventory;
     
     public UserAccountPlus(){
-        productList = new ProductCatalog();
+        productCatalog = new ProductCatalog();
         inventory = new Inventory();
     }
 
-    public ProductCatalog getProductList() {
-        return productList;
+    public ProductCatalog getProductCatalog() {
+        return productCatalog;
     }
 
-    public void setProductList(ProductCatalog productList) {
-        this.productList = productList;
-    }
+    public void setProductCatalog(ProductCatalog productCatalog) {
+        this.productCatalog = productCatalog;
+    }    
 
     public Inventory getInventory() {
         return inventory;

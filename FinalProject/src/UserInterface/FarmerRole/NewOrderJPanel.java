@@ -5,10 +5,14 @@
  */
 package UserInterface.FarmerRole;
 
-import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.FarmerOrganization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,12 +25,36 @@ public class NewOrderJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private UserAccount userAccount;
-    private EcoSystem business;
-    public NewOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem business) {
+    private Enterprise enterprise;
+    private ManageOrderJPanel mojp;
+    public NewOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise, ManageOrderJPanel mojp) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = userAccount;
-        this.business = business;
+        this.enterprise = enterprise;
+        this.mojp = mojp;
+        populateAllOrders();
+    }
+    
+    public void populateAllOrders(){
+        
+        DefaultTableModel model = (DefaultTableModel) procTable.getModel();
+        model.setRowCount(0);
+        
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            
+            if (org instanceof FarmerOrganization) {
+                
+                for (WorkRequest request : org.getWorkQueue().getWorkRequestList()) {
+                    Object[] row = new Object[4];
+                    row[0] = request;
+                    row[1] = request.getSender().getPerson().getName();
+                    row[2] = request.getReceiver() == null ? null : request.getReceiver().getPerson().getName();
+                    row[3] = request.getStatus();                    
+                    model.addRow(row);
+                }
+            }
+        }
     }
 
     /**
@@ -40,8 +68,8 @@ public class NewOrderJPanel extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        procTable = new javax.swing.JTable();
+        obtainBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -51,7 +79,7 @@ public class NewOrderJPanel extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("E-Procurement Panel");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        procTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -67,15 +95,20 @@ public class NewOrderJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(procTable);
+        if (procTable.getColumnModel().getColumnCount() > 0) {
+            procTable.getColumnModel().getColumn(0).setResizable(false);
+            procTable.getColumnModel().getColumn(1).setResizable(false);
+            procTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jButton1.setText("Obtain Order");
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        obtainBtn.setText("Obtain Order");
+        obtainBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        obtainBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                obtainBtnActionPerformed(evt);
+            }
+        });
 
         backBtn.setText("<< Back");
         backBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -101,7 +134,7 @@ public class NewOrderJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(obtainBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -112,7 +145,7 @@ public class NewOrderJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(obtainBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -122,15 +155,29 @@ public class NewOrderJPanel extends javax.swing.JPanel {
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         userProcessContainer.remove(this);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        mojp.populateOrderTable();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void obtainBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obtainBtnActionPerformed
+        int selectedRow = procTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)procTable.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        request.setStatus("Pending");
+        populateAllOrders();
+    }//GEN-LAST:event_obtainBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton obtainBtn;
+    private javax.swing.JTable procTable;
     // End of variables declaration//GEN-END:variables
 }

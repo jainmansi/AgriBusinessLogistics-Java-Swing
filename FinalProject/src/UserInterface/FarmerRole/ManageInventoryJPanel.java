@@ -5,9 +5,14 @@
  */
 package UserInterface.FarmerRole;
 
+import Business.Inventory.InventoryItem;
+import Business.Product.Product;
 import Business.UserAccount.UserAccount;
+import static com.db4o.qlin.QLinSupport.p;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,10 +25,12 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private UserAccount userAccount;
+
     public ManageInventoryJPanel(JPanel userProcessContainer, UserAccount userAccount) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = userAccount;
+        populateInventoryTable();
     }
 
     /**
@@ -36,28 +43,28 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        inventoryTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         updateBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        inventoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Product Name", "Product ID", "Quantity"
+                "Product Name", "Product ID", "Quantity", "Threshold"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(inventoryTable);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(96, 125, 139));
@@ -119,19 +126,39 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backBtnActionPerformed
 
+    public void populateInventoryTable() {
+        DefaultTableModel dtm = (DefaultTableModel) inventoryTable.getModel();
+        dtm.setRowCount(0);
+        for (InventoryItem item : userAccount.getInventory().getInventoryList()) {
+            Object row[] = new Object[4];
+            row[0] = item;
+            row[1] = item.getProduct().getId();
+            row[2] = item.getQuantity();
+            row[3] = item.getThreshold();
+            dtm.addRow(row);
+        }
+    }
+
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        UpdateItemJPanel updateItemFarmJPanel = new UpdateItemJPanel(userProcessContainer, userAccount);
-        userProcessContainer.add("updateItemFarmJPanel", updateItemFarmJPanel);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
+        int selectedRow = inventoryTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            InventoryItem ii = (InventoryItem) inventoryTable.getValueAt(selectedRow, 0);
+            UpdateItemJPanel updateItemFarmJPanel = new UpdateItemJPanel(userProcessContainer, userAccount, ii, this);
+            userProcessContainer.add("updateItemFarmJPanel", updateItemFarmJPanel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        } else {
+            JOptionPane.showMessageDialog(null, "Kindly select a row");
+        }
+
     }//GEN-LAST:event_updateBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JTable inventoryTable;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,10 @@
  */
 package UserInterface.RetailerRole;
 
+import Business.Enterprise.Enterprise;
+import Business.UserAccount.UserAccount;
+import javax.swing.JPanel;
+
 /**
  *
  * @author user
@@ -14,8 +18,14 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageProductsJPanel
      */
-    public ManageProductsJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount account;
+    private Enterprise enterprise;
+    public ManageProductsJPanel(JPanel userProcessContainer, UserAccount account) {
         initComponents();
+        this.account = account;
+        this.userProcessContainer = userProcessContainer;
+        //this.enterprise = enterprise;
     }
 
     /**

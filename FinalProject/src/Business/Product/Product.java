@@ -21,14 +21,11 @@ public class Product {
     public Product(){
         ++counter;
         id = counter;
+        rfid = new RFID();
     }
 
     public RFID getRfid() {
         return rfid;
-    }
-
-    public void setRfid(RFID rfid) {
-        this.rfid = rfid;
     }
 
     public String getName() {
@@ -49,10 +46,6 @@ public class Product {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

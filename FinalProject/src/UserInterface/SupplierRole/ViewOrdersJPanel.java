@@ -5,6 +5,10 @@
  */
 package UserInterface.SupplierRole;
 
+import Business.Enterprise.Enterprise;
+import Business.UserAccount.UserAccount;
+import javax.swing.JPanel;
+
 /**
  *
  * @author user
@@ -14,8 +18,19 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewOrdersJPanel
      */
-    public ViewOrdersJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount account;
+    private Enterprise enterprise;
+    public ViewOrdersJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
         initComponents();
+        this.account = account;
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        populateOrdersTable();
+    }
+    
+    public void populateOrdersTable(){
+        
     }
 
     /**
@@ -29,7 +44,7 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        orderTable = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
@@ -37,7 +52,7 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Your Orders");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        orderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -53,7 +68,7 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(orderTable);
 
         jButton3.setText("<< Back");
         jButton3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -102,6 +117,6 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable orderTable;
     // End of variables declaration//GEN-END:variables
 }

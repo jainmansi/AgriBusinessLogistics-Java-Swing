@@ -5,6 +5,15 @@
  */
 package UserInterface.SupplierRole;
 
+import Business.Enterprise.Enterprise;
+import Business.Inventory.InventoryItem;
+import Business.UserAccount.UserAccount;
+import UserInterface.FarmerRole.NewOrderJPanel;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author user
@@ -14,8 +23,28 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageInventoryJPanel
      */
-    public ManageInventoryJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount account;
+    private Enterprise enterprise;
+    public ManageInventoryJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
         initComponents();
+        this.account = account;
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        populateInvenItemTable();
+    }
+    
+    public void populateInvenItemTable(){
+        DefaultTableModel dtm = (DefaultTableModel) invenItemTable.getModel();
+        dtm.setRowCount(0);
+        for (InventoryItem item : account.getInventory().getInventoryList()) {
+            Object row[] = new Object[4];
+            row[0] = item;
+            row[1] = item.getProduct().getId();
+            row[2] = item.getQuantity();
+            row[3] = item.getThreshold();
+            dtm.addRow(row);
+        }
     }
 
     /**
@@ -27,23 +56,30 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        orderItemsBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        invenItemTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        backBtn = new javax.swing.JButton();
 
-        jButton3.setText("<< Back");
-        jButton3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        orderItemsBtn.setText("Order New Items >>");
+        orderItemsBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        orderItemsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderItemsBtnActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Order New Items >>");
-        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        deleteBtn.setText("Delete Inventory Item");
+        deleteBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Delete Inventory Item");
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        invenItemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -59,30 +95,40 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(invenItemTable);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(96, 125, 139));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Manage Inventory");
 
+        backBtn.setText("<< Back");
+        backBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(140, 140, 140)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(79, 79, 79)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(131, 131, 131)
+                                    .addComponent(orderItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -94,21 +140,45 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101))
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orderItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        int selectedRow = invenItemTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            InventoryItem ii = (InventoryItem) invenItemTable.getValueAt(selectedRow, 0);
+            account.getInventory().removeInventory(ii);
+        } else {
+            JOptionPane.showMessageDialog(null, "Kindly select a row");
+        }
+        populateInvenItemTable();
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void orderItemsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderItemsBtnActionPerformed
+        PlaceOrderJPanel placeOrderSupplierJPanel = new PlaceOrderJPanel(userProcessContainer, account, enterprise, this);
+        userProcessContainer.add("placeOrderSupplierJPanel", placeOrderSupplierJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_orderItemsBtnActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JTable invenItemTable;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton orderItemsBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,6 +9,7 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.FarmerOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.FarmerWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;

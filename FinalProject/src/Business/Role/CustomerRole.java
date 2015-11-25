@@ -20,8 +20,8 @@ import javax.swing.JPanel;
 public class CustomerRole extends Role{
 
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-        return new CustomerWorkAreaJPanel();
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network, EcoSystem business) {
+        return new CustomerWorkAreaJPanel(userProcessContainer, account, organization, enterprise, network, business);
     }
     
 }

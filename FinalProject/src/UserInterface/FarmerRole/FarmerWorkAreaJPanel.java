@@ -47,6 +47,7 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        viewReportBtn.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         viewReportBtn.setText("View Report");
         viewReportBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         viewReportBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -60,6 +61,7 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Farmer Work Area");
 
+        manageOrdersJPanel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         manageOrdersJPanel.setText("Manage All Orders");
         manageOrdersJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         manageOrdersJPanel.addActionListener(new java.awt.event.ActionListener() {
@@ -68,6 +70,7 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        manageProductsBtn.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         manageProductsBtn.setText("Manage Product Catalog");
         manageProductsBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         manageProductsBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +79,7 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        manageInventoryJPanel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         manageInventoryJPanel.setText("Manage Warehouse");
         manageInventoryJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         manageInventoryJPanel.addActionListener(new java.awt.event.ActionListener() {
@@ -94,11 +98,11 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
                         .addGap(72, 72, 72)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
+                        .addGap(114, 114, 114)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(manageProductsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                            .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(manageProductsBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                            .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(viewReportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(77, 77, 77))
         );

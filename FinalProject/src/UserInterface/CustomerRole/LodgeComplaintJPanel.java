@@ -9,12 +9,12 @@ package UserInterface.CustomerRole;
  *
  * @author user
  */
-public class ManageComplaintsJPanel extends javax.swing.JPanel {
+public class LodgeComplaintJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form ManageComplaintsJPanel
+     * Creates new form LodgeComplaintJPanel
      */
-    public ManageComplaintsJPanel() {
+    public LodgeComplaintJPanel() {
         initComponents();
     }
 

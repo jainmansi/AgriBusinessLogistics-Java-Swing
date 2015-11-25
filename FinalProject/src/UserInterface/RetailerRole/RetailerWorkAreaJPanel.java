@@ -114,7 +114,7 @@ public class RetailerWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewReportsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addGap(104, 104, 104))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -126,14 +126,14 @@ public class RetailerWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_viewReportsBtnActionPerformed
 
     private void manageWarehouseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageWarehouseBtnActionPerformed
-        ManageInventoryJPanel manageInventoryRetailerJPanel = new ManageInventoryJPanel(userProcessContainer, account);
+        ManageInventoryJPanel manageInventoryRetailerJPanel = new ManageInventoryJPanel(userProcessContainer, account, enterprise);
         userProcessContainer.add("manageInventoryRetailerJPanel", manageInventoryRetailerJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageWarehouseBtnActionPerformed
 
     private void manageProdCatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageProdCatBtnActionPerformed
-        ManageProductsJPanel manageProductsRetailerJPanel = new ManageProductsJPanel(userProcessContainer, account);
+        ManageProductsJPanel manageProductsRetailerJPanel = new ManageProductsJPanel(userProcessContainer, account, enterprise);
         userProcessContainer.add("manageProductsRetailerJPanel", manageProductsRetailerJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

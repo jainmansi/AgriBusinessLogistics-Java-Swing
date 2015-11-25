@@ -6,6 +6,7 @@
 package UserInterface.SupplierRole;
 
 import Business.Enterprise.Enterprise;
+import Business.Inventory.InventoryItem;
 import Business.Organization.FarmerOrganization;
 import Business.Organization.Organization;
 import Business.Product.Product;
@@ -164,8 +165,15 @@ public class AddProductsJPanel extends javax.swing.JPanel {
     private void addCatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCatBtnActionPerformed
         Product p = (Product) productComboBox.getSelectedItem();
         if(p != null){
-            Product newProd = account.getProductCatalog().addProduct();
-            newProd = p;
+            Product newProd = new Product();
+            newProd.setName(p.getName());
+            newProd.setPrice(p.getPrice());
+            account.getProductCatalog().getProductList().add(newProd);            
+            //newProd.setName(p.getName());
+            //newProd.setPrice(p.getPrice());
+            InventoryItem ii = account.getInventory().addInventory();
+            ii.setProduct(p);
+            ii.setName(p.getName());
         }
     }//GEN-LAST:event_addCatBtnActionPerformed
 

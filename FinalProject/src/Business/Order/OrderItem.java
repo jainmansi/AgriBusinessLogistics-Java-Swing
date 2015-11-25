@@ -6,7 +6,6 @@
 package Business.Order;
 
 import Business.Product.Product;
-import Business.Sensors.RFID;
 
 /**
  *
@@ -15,16 +14,7 @@ import Business.Sensors.RFID;
 public class OrderItem {
     private Product product;
     private int quantity;
-    private int salesPrice;
-    private RFID rfid;
-
-    public RFID getRfid() {
-        return rfid;
-    }
-
-    public void setRfid(RFID rfid) {
-        this.rfid = rfid;
-    }  
+    private int salesPrice;  
 
     public Product getProduct() {
         return product;

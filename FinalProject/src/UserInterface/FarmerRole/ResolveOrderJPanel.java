@@ -7,6 +7,7 @@ package UserInterface.FarmerRole;
 
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.util.Date;
 import javax.swing.JPanel;
 
 /**
@@ -143,6 +144,8 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void resolveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resolveBtnActionPerformed
+        Date date = new Date();
+        workRequest.setResolveDate(date);
         workRequest.setStatus("completed");
         workRequest.setMessage(messageTxtField.getText());
     }//GEN-LAST:event_resolveBtnActionPerformed

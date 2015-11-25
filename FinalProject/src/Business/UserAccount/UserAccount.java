@@ -67,7 +67,7 @@ public class UserAccount {
         return role;
     }
 
-    public void setPerson(Person Perosn) {
+    public void setPerson(Person person) {
         this.person = person;
     }
 

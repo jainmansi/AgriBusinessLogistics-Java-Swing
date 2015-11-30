@@ -8,6 +8,7 @@ package UserInterface.SystemAdminRole;
 import Business.EcoSystem;
 import Business.Network.Network;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -58,6 +59,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         deleteBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         networkJTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         networkJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,8 +93,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 0));
         jLabel2.setText("Manage Network");
 
         addBtn.setText("Add");
@@ -132,11 +135,11 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -155,8 +158,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -176,6 +179,10 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        SystemAdminWorkAreaJPanel sysAdminwjp = (SystemAdminWorkAreaJPanel) component;
+        sysAdminwjp.populateTree();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backBtnActionPerformed

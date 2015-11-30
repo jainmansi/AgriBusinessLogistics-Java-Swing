@@ -7,8 +7,8 @@ package UserInterface.SupplierRole;
 
 import Business.Enterprise.Enterprise;
 import Business.Inventory.InventoryItem;
+import Business.Network.Network;
 import Business.UserAccount.UserAccount;
-import UserInterface.FarmerRole.NewOrderJPanel;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,11 +26,13 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount account;
     private Enterprise enterprise;
-    public ManageInventoryJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
+    private Network network;
+    public ManageInventoryJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network) {
         initComponents();
         this.account = account;
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        this.network = network;
         populateInvenItemTable();
     }
     
@@ -62,6 +64,9 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
         invenItemTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         orderItemsBtn.setText("Order New Items >>");
         orderItemsBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -97,9 +102,8 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(invenItemTable);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 0));
         jLabel2.setText("Manage Inventory");
 
         backBtn.setText("<< Back");
@@ -110,6 +114,9 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        jLabel3.setText("Your Inventory Items:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,18 +124,22 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(133, 133, 133)
+                                .addComponent(orderItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(131, 131, 131)
-                                    .addComponent(orderItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(jLabel2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -136,13 +147,15 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(26, 26, 26)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(orderItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(28, 28, 28)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -160,7 +173,7 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void orderItemsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderItemsBtnActionPerformed
-        PlaceOrderJPanel placeOrderSupplierJPanel = new PlaceOrderJPanel(userProcessContainer, account, enterprise, this);
+        PlaceOrderJPanel placeOrderSupplierJPanel = new PlaceOrderJPanel(userProcessContainer, account, enterprise, network, this);
         userProcessContainer.add("placeOrderSupplierJPanel", placeOrderSupplierJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -178,6 +191,7 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
     private javax.swing.JButton deleteBtn;
     private javax.swing.JTable invenItemTable;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton orderItemsBtn;
     // End of variables declaration//GEN-END:variables

@@ -6,6 +6,7 @@
 package UserInterface.FarmerRole;
 
 import Business.Enterprise.Enterprise;
+import Business.Network.Network;
 import Business.Organization.FarmerOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
@@ -26,12 +27,13 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount userAccount;
     private Enterprise enterprise;
-
-    public ManageOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise) {
+    private Network network;
+    public ManageOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = userAccount;
         this.enterprise = enterprise;
+        this.network = network;
         populateOrderTable();
     }
 
@@ -95,7 +97,6 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Manage Orders");
 
         newOrderBtn.setText("New Order >>");
@@ -187,7 +188,7 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
      
         request.setStatus("Processing");
         
-        ResolveOrderJPanel resolveOrderJPanel = new ResolveOrderJPanel(userProcessContainer, request, this);
+        ResolveOrderJPanel resolveOrderJPanel = new ResolveOrderJPanel(userProcessContainer, userAccount, network, request, this);
         userProcessContainer.add("processWorkRequestJPanel", resolveOrderJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

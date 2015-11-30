@@ -21,7 +21,7 @@ public class FarmerRole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network, EcoSystem business) {
-        return new FarmerWorkAreaJPanel(userProcessContainer,account, enterprise);
+        return new FarmerWorkAreaJPanel(userProcessContainer,account, enterprise, network);
     }
     
 }

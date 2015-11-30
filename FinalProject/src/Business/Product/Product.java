@@ -15,26 +15,20 @@ public class Product {
     private String name;
     private int id;
     private int price;
-    private RFID rfid;
     private static int counter = 0;
     
     public Product(){
         ++counter;
         id = counter;
-        rfid = new RFID();
-    }
-
-    public RFID getRfid() {
-        return rfid;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }        
 
     public int getPrice() {
         return price;

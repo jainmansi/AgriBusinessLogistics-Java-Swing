@@ -5,6 +5,10 @@
  */
 package UserInterface.CustomerRole;
 
+import Business.Network.Network;
+import Business.UserAccount.UserAccount;
+import javax.swing.JPanel;
+
 /**
  *
  * @author user
@@ -14,8 +18,14 @@ public class LodgeComplaintJPanel extends javax.swing.JPanel {
     /**
      * Creates new form LodgeComplaintJPanel
      */
-    public LodgeComplaintJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount account;
+    private Network network;
+    public LodgeComplaintJPanel(JPanel userProcessContainer, UserAccount account, Network network) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.account = account;
+        this.network = network;
     }
 
     /**
@@ -27,19 +37,33 @@ public class LodgeComplaintJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
+        jLabel2.setText("Lodge Complaints Here");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(255, 255, 255))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

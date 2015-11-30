@@ -6,6 +6,10 @@
 package Business.Order;
 
 import Business.Product.Product;
+import Business.Sensors.RFID;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
@@ -14,11 +18,26 @@ import Business.Product.Product;
 public class OrderItem {
     private Product product;
     private int quantity;
-    private int salesPrice;  
+    private int salesPrice;
+    private Queue<RFID> rfid; 
+    
+    public OrderItem(){
+        rfid = new LinkedList<>();
+    }
 
     public Product getProduct() {
         return product;
     }
+    
+    public Queue<RFID> getRfid() {
+        return rfid;
+    }
+
+    public void setRfid(Queue<RFID> rfid) {
+        this.rfid = rfid;
+    }
+
+    
 
     public void setProduct(Product product) {
         this.product = product;

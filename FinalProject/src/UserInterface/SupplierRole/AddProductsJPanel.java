@@ -69,9 +69,10 @@ public class AddProductsJPanel extends javax.swing.JPanel {
         addCatBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 0));
         jLabel2.setText("Add Product to Catalog");
 
         farmerComboBox.addActionListener(new java.awt.event.ActionListener() {

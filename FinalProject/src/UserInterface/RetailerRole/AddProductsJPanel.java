@@ -169,8 +169,6 @@ public class AddProductsJPanel extends javax.swing.JPanel {
             newProd.setName(p.getName());
             newProd.setPrice(p.getPrice());
             account.getProductCatalog().getProductList().add(newProd);
-            //newProd.setName(p.getName());
-            //newProd.setPrice(p.getPrice());
             InventoryItem ii = account.getInventory().addInventory();
             ii.setProduct(p);
             ii.setName(p.getName());

@@ -6,6 +6,7 @@
 package UserInterface.SupplierRole;
 
 import Business.Enterprise.Enterprise;
+import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -22,11 +23,13 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount account;
     private Enterprise enterprise;
-    public SupplierWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
+    private Network network;
+    public SupplierWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network) {
         initComponents();
         this.account = account;
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        this.network = network;
     }
 
     /**
@@ -41,9 +44,11 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
         pendingOrdersBtn = new javax.swing.JButton();
         manageInventoryBtn = new javax.swing.JButton();
         placedOrdersBtn = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         viewReportBtn = new javax.swing.JButton();
         manageCatalogBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         pendingOrdersBtn.setText("View Pending Orders");
         pendingOrdersBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -69,11 +74,6 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
-        jLabel2.setText("Supplier Work Area");
-
         viewReportBtn.setText("View Report");
         viewReportBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         viewReportBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -90,36 +90,39 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel1.setText("Supplier Work Area");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(manageInventoryBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pendingOrdersBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                            .addGap(123, 123, 123)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(manageCatalogBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(placedOrdersBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(71, 71, 71)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(manageInventoryBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pendingOrdersBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                        .addGap(123, 123, 123)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(manageCatalogBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(placedOrdersBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(134, 134, 134)
-                        .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(jLabel1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(58, 58, 58)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageInventoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(manageCatalogBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -134,7 +137,7 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void manageInventoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageInventoryBtnActionPerformed
-        ManageInventoryJPanel manageInventorySupplierJPanel = new ManageInventoryJPanel(userProcessContainer, account, enterprise);
+        ManageInventoryJPanel manageInventorySupplierJPanel = new ManageInventoryJPanel(userProcessContainer, account, enterprise, network);
         userProcessContainer.add("manageInventorySupplierJPanel", manageInventorySupplierJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -155,7 +158,7 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_viewReportBtnActionPerformed
 
     private void pendingOrdersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pendingOrdersBtnActionPerformed
-        PendingOrdersJPanel pendingOrdersSupplierJPanel = new PendingOrdersJPanel(userProcessContainer, account, enterprise);
+        PendingOrdersJPanel pendingOrdersSupplierJPanel = new PendingOrdersJPanel(userProcessContainer, account, enterprise, network);
         userProcessContainer.add("pendingOrdersSupplierJPanel", pendingOrdersSupplierJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -170,7 +173,7 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton manageCatalogBtn;
     private javax.swing.JButton manageInventoryBtn;
     private javax.swing.JButton pendingOrdersBtn;

@@ -5,10 +5,16 @@
  */
 package UserInterface.SupplierRole;
 
+import Business.Inventory.InventoryItem;
+import Business.Network.Network;
+import Business.Order.Order;
+import Business.Order.OrderItem;
+import Business.Sensors.RFID;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.SupplierReceivedWorkRequest;
 import java.awt.CardLayout;
 import java.util.Date;
+import java.util.Queue;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -23,12 +29,15 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private UserAccount account;
+    private Network network;
     private SupplierReceivedWorkRequest request;
     private PendingOrdersJPanel pojp;
-    public ResolveOrderJPanel(JPanel userProcessContainer, UserAccount account, SupplierReceivedWorkRequest request, PendingOrdersJPanel pojp) {
+
+    public ResolveOrderJPanel(JPanel userProcessContainer, UserAccount account, Network network, SupplierReceivedWorkRequest request, PendingOrdersJPanel pojp) {
         initComponents();
         this.account = account;
         this.userProcessContainer = userProcessContainer;
+        this.network = network;
         this.request = request;
         this.pojp = pojp;
     }
@@ -50,7 +59,6 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(96, 125, 139));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Resolve Order");
 
         jLabel1.setText("Message to Retailer:");
@@ -78,9 +86,6 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(78, 78, 78)
                         .addComponent(jLabel1)
                         .addGap(37, 37, 37)
@@ -90,7 +95,10 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
                         .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(157, 157, 157)
-                        .addComponent(submitTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(submitTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(86, 86, 86))
         );
         layout.setVerticalGroup(
@@ -122,11 +130,32 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
         Date date = new Date();
         request.setResolveDate(date);
         request.setStatus("Completed");
+        int qty = request.getQuantity();
+        Order o = request.getOrder();
+        //Queue<RFID> temp = null;
+        for (OrderItem oi : o.getOrderItemList()) {
+            for (InventoryItem ii : account.getInventory().getInventoryList()) {
+                if (ii.getProduct().getName().equals(request.getProduct().getName())) {
+                    for(int i = 0; i < qty; i++)
+                        oi.getRfid().add(ii.getRfid().remove());
+                    ii.setQuantity(oi.getRfid().size());
+                }
+            }
+            for (InventoryItem rii : request.getSender().getInventory().getInventoryList()) {
+                if(rii.getProduct().getName().equals(request.getProduct().getName())){
+                    Queue<RFID> temp = oi.getRfid();
+                    for(int i = 0; i < qty; i++)
+                        rii.getRfid().add(temp.remove());
+                    rii.setQuantity(rii.getRfid().size());
+                }
+            }
+        }
         resetFields();
+        network.getMasterOrderCatalog().addOrder(o);
         JOptionPane.showMessageDialog(null, "Order resolved successfully!");
     }//GEN-LAST:event_submitTxtFieldActionPerformed
 
-    private void resetFields(){        
+    private void resetFields() {
         msgTxtField.setText("");
     }
 

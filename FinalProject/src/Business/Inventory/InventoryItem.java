@@ -7,6 +7,8 @@ package Business.Inventory;
 
 import Business.Product.Product;
 import Business.Sensors.RFID;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
@@ -17,9 +19,22 @@ public class InventoryItem {
     private String name;
     private int quantity;
     private int threshold;
+    private Queue<RFID> rfid;
+    
+    public InventoryItem(){
+        rfid = new LinkedList<>();
+    }
 
     public Product getProduct() {
         return product;
+    }
+
+    public Queue<RFID> getRfid() {
+        return rfid;
+    }
+
+    public void setRfid(Queue<RFID> rfid) {
+        this.rfid = rfid;
     }
 
     public void setProduct(Product product) {
@@ -54,5 +69,7 @@ public class InventoryItem {
     public String toString() {
         return name;
     }   
+    
+    
     
 }

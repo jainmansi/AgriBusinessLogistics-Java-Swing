@@ -5,6 +5,14 @@
  */
 package UserInterface.CustomerRole;
 
+import Business.Network.Network;
+import Business.Order.Order;
+import Business.Order.OrderItem;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author user
@@ -14,8 +22,16 @@ public class PurchasedProductsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form PurchasedProductsJPanel
      */
-    public PurchasedProductsJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount account;
+    private Network network;
+
+    public PurchasedProductsJPanel(JPanel userProcessContainer, UserAccount account, Network network) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.account = account;
+        this.network = network;
+        populatePurchasedProductsTable();
     }
 
     /**
@@ -27,19 +43,101 @@ public class PurchasedProductsJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        purchasedProductsTable = new javax.swing.JTable();
+        backBtn = new javax.swing.JButton();
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
+        jLabel2.setText("Your Purchased Products");
+
+        purchasedProductsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Product Name", "Retailer", "Purchase Date", "Quantity"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(purchasedProductsTable);
+
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 11)); // NOI18N
+        backBtn.setText("<< Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(backBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel2)
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(backBtn)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backBtnActionPerformed
+
+    public void populatePurchasedProductsTable() {
+        DefaultTableModel dtm = (DefaultTableModel) purchasedProductsTable.getModel();
+        dtm.setRowCount(0);
+
+        for (Order o : network.getMasterOrderCatalog().getOrderCatalog()) {
+            if (o.getType().equals("c2r") && o.getBuyer() == account) {                
+                for (OrderItem oi : o.getOrderItemList()) {
+                    Object row[] = new Object[4];
+                    row[0] = oi.getProduct().getName();
+                    row[1] = o.getSeller().getPerson().getName();
+                    row[2] = "abc";
+                    row[3] = oi.getQuantity();
+                    dtm.addRow(row);
+                }
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backBtn;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable purchasedProductsTable;
     // End of variables declaration//GEN-END:variables
 }

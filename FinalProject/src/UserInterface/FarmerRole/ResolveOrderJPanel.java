@@ -5,9 +5,17 @@
  */
 package UserInterface.FarmerRole;
 
+import Business.Inventory.InventoryItem;
+import Business.Network.Network;
+import Business.Order.Order;
+import Business.Order.OrderItem;
+import Business.Sensors.RFID;
+import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.swing.JPanel;
 
 /**
@@ -22,11 +30,15 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private WorkRequest workRequest;
     private ManageOrderJPanel mojp;
-    public ResolveOrderJPanel(JPanel userProcessContainer, WorkRequest workRequest, ManageOrderJPanel mojp) {
+    private UserAccount userAccount;
+    private Network network;
+    public ResolveOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, Network network, WorkRequest workRequest, ManageOrderJPanel mojp) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.workRequest = workRequest;
         this.mojp = mojp;
+        this.userAccount = userAccount;
+        this.network = network;
         supplierNameTxtField.setText(workRequest.getSender().getPerson().getName());
     }
 
@@ -51,7 +63,6 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Resolve Order");
 
         jLabel1.setText("Supplier Name:");
@@ -102,10 +113,11 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
                             .addComponent(supplierNameTxtField))
                         .addGap(62, 62, 62))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
+                .addGap(166, 166, 166)
                 .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,15 +132,11 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(messageTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(backBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -148,6 +156,27 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
         workRequest.setResolveDate(date);
         workRequest.setStatus("completed");
         workRequest.setMessage(messageTxtField.getText());
+        workRequest.getOrder().setSeller(userAccount);
+        Order o = workRequest.getOrder();
+
+        for (OrderItem oi : o.getOrderItemList()) {
+            for (InventoryItem ii : userAccount.getInventory().getInventoryList()) {
+                if (ii.getName().equals(workRequest.getProduct().getName())) {
+                    for(int i = 0; i < oi.getQuantity(); i++)
+                        oi.getRfid().add(ii.getRfid().remove());
+                    ii.setQuantity(ii.getRfid().size());
+                }
+            }
+            for (InventoryItem sii : workRequest.getSender().getInventory().getInventoryList()) {
+                if(sii.getProduct().getName().equals(workRequest.getProduct().getName())){
+                Queue<RFID> temp = oi.getRfid();
+                for(int i = 0; i < oi.getQuantity(); i++)
+                    sii.getRfid().add(temp.remove());                
+                sii.setQuantity(sii.getRfid().size());
+                }
+            }
+        }
+        network.getMasterOrderCatalog().addOrder(o);
     }//GEN-LAST:event_resolveBtnActionPerformed
 
 

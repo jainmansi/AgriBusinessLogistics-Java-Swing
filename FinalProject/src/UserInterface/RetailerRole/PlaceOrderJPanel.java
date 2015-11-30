@@ -10,10 +10,12 @@ import Business.Inventory.InventoryItem;
 import Business.Organization.FarmerOrganization;
 import Business.Organization.Organization;
 import Business.Organization.SupplierOrganization;
+import Business.Product.Product;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.SupplierReceivedWorkRequest;
 import java.awt.CardLayout;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,7 +41,7 @@ public class PlaceOrderJPanel extends javax.swing.JPanel {
         this.mijp = mijp;
         populateSupplierCombo();
     }
-    
+
     public void populateSupplierCombo() {
         supplierComboBox.removeAllItems();
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
@@ -50,8 +52,8 @@ public class PlaceOrderJPanel extends javax.swing.JPanel {
             }
         }
     }
-    
-    public void populateProductTable(UserAccount user){
+
+    public void populateProductTable(UserAccount user) {
         DefaultTableModel dtm = (DefaultTableModel) productTable.getModel();
         dtm.setRowCount(0);
         for (InventoryItem item : user.getInventory().getInventoryList()) {
@@ -209,7 +211,7 @@ public class PlaceOrderJPanel extends javax.swing.JPanel {
 
     private void supplierComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierComboBoxActionPerformed
         UserAccount ua = (UserAccount) supplierComboBox.getSelectedItem();
-        if (ua != null){
+        if (ua != null) {
             populateProductTable(ua);
         }
     }//GEN-LAST:event_supplierComboBoxActionPerformed
@@ -217,24 +219,39 @@ public class PlaceOrderJPanel extends javax.swing.JPanel {
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
         SupplierReceivedWorkRequest request = new SupplierReceivedWorkRequest();
         UserAccount receiver = (UserAccount) supplierComboBox.getSelectedItem();
-        request.setSender(account);
-        request.setReceiver(receiver);
-        Date date = new Date();
-        request.setRequestDate(date);
-        request.setStatus("Sent");
-        
-        receiver.getWorkQueue().getWorkRequestList().add(request);
-        
-        Organization org = null;
-        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
-            if (organization instanceof FarmerOrganization){
-                org = organization;
-                break;
+        int selectedRow = productTable.getSelectedRow();
+        InventoryItem selectedProduct;
+        int salesPrice = 0;
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Select a row", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            selectedProduct = (InventoryItem) productTable.getValueAt(selectedRow, 0);
+            request.setProduct(selectedProduct.getProduct());
+            request.setProductName(request.getProduct().getName());
+            request.setSender(account);
+            request.setReceiver(receiver);
+            request.getOrder().setBuyer(account);
+            request.getOrder().setType("s2r");
+            Date date = new Date();
+            request.setRequestDate(date);
+            request.setStatus("Sent");
+            int fetchedQty = (Integer) qtySpinner.getValue();
+            request.getOrder().addOrderItem(selectedProduct.getProduct(), fetchedQty);
+            request.setQuantity(fetchedQty);
+
+            Organization org = null;
+            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (organization instanceof FarmerOrganization) {
+                    org = organization;
+                    break;
+                }
             }
-        }
-        if (org!=null){
-            org.getWorkQueue().getWorkRequestList().add(request);
-            account.getWorkQueue().getWorkRequestList().add(request);
+            if (org != null) {
+                org.getWorkQueue().getWorkRequestList().add(request);
+                account.getWorkQueue().getWorkRequestList().add(request);
+                receiver.getWorkQueue().getWorkRequestList().add(request);
+            }
         }
     }//GEN-LAST:event_orderBtnActionPerformed
 

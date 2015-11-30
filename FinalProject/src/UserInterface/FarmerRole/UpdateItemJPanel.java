@@ -6,6 +6,7 @@
 package UserInterface.FarmerRole;
 
 import Business.Inventory.InventoryItem;
+import Business.Sensors.RFID;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -57,7 +58,6 @@ public class UpdateItemJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(96, 125, 139));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Update Inventory Item");
 
         jLabel1.setText("Name:");
@@ -157,9 +157,15 @@ public class UpdateItemJPanel extends javax.swing.JPanel {
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
             int qty = (Integer) qtySpinner.getValue();
             int thresh = (Integer) thresholdSpinner.getValue();
-            
-            item.setQuantity(item.getQuantity() + qty);
+                        
             item.setThreshold(thresh);
+            
+            
+            for(int i = 0; i < qty ; i++){
+                RFID rfid = new RFID();
+                item.getRfid().add(rfid);
+                item.setQuantity(item.getRfid().size());
+            }
     }//GEN-LAST:event_updateBtnActionPerformed
 
 

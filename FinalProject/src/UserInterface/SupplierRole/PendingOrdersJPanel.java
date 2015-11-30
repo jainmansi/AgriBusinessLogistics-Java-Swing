@@ -6,6 +6,7 @@
 package UserInterface.SupplierRole;
 
 import Business.Enterprise.Enterprise;
+import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.SupplierReceivedWorkRequest;
 import Business.WorkQueue.WorkRequest;
@@ -25,12 +26,14 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount account;
     private Enterprise enterprise;
+    private Network network;
 
-    public PendingOrdersJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
+    public PendingOrdersJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network) {
         initComponents();
         this.account = account;
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        this.network = network;
         populatePendingOrdersJTable();
     }
 
@@ -105,7 +108,6 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(96, 125, 139));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Pending Orders");
 
         resolveBtn.setText("Resolve >>");
@@ -133,9 +135,6 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(89, 89, 89)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,13 +142,16 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
                         .addComponent(resolveBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(orderHistory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
                 .addGap(12, 12, 12)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +181,7 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
 
         request.setStatus("Processing");
 
-        ResolveOrderJPanel resolveOrderJPanel = new ResolveOrderJPanel(userProcessContainer, account, request, this);
+        ResolveOrderJPanel resolveOrderJPanel = new ResolveOrderJPanel(userProcessContainer, account, network, request, this);
         userProcessContainer.add("resolveOrderJPanel", resolveOrderJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

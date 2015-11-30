@@ -5,6 +5,7 @@
  */
 package Business.WorkQueue;
 
+import Business.Order.Order;
 import Business.Product.Product;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
@@ -21,7 +22,21 @@ public abstract class WorkRequest {
     private Date requestDate;
     private Date resolveDate;
     private Product product;
+    private Order order;
+    
+    public WorkRequest(){
+        order = new Order();
+    }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }    
+
+    
     public String getMessage() {
         return message;
     }
@@ -37,6 +52,15 @@ public abstract class WorkRequest {
     public void setSender(UserAccount sender) {
         this.sender = sender;
     }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    
 
     public UserAccount getReceiver() {
         return receiver;

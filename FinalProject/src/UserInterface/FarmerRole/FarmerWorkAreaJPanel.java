@@ -6,6 +6,7 @@
 package UserInterface.FarmerRole;
 
 import Business.Enterprise.Enterprise;
+import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -23,11 +24,13 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount account;
     private Enterprise enterprise;
-    public FarmerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
+    private Network network;
+    public FarmerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network) {
         initComponents();
         this.account = account;
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        this.network = network;
     }
 
     /**
@@ -58,7 +61,6 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Farmer Work Area");
 
         manageOrdersJPanel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
@@ -95,16 +97,16 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(114, 114, 114)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(manageProductsBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                             .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewReportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(77, 77, 77))
+                            .addComponent(viewReportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(108, 108, 108))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +133,7 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_viewReportBtnActionPerformed
 
     private void manageOrdersJPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrdersJPanelActionPerformed
-        ManageOrderJPanel manageOrderFarmJPanel = new ManageOrderJPanel(userProcessContainer, account, enterprise);
+        ManageOrderJPanel manageOrderFarmJPanel = new ManageOrderJPanel(userProcessContainer, account, enterprise, network);
         userProcessContainer.add("manageOrderFarmJPanel", manageOrderFarmJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

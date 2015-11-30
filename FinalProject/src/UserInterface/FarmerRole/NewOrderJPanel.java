@@ -28,6 +28,7 @@ public class NewOrderJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Enterprise enterprise;
     private ManageOrderJPanel mojp;
+
     public NewOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise, ManageOrderJPanel mojp) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -36,23 +37,24 @@ public class NewOrderJPanel extends javax.swing.JPanel {
         this.mojp = mojp;
         populateAllOrders();
     }
-    
-    public void populateAllOrders(){
-        
+
+    public void populateAllOrders() {
+
         DefaultTableModel model = (DefaultTableModel) procTable.getModel();
         model.setRowCount(0);
-        
+
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
-            
+
             if (org instanceof FarmerOrganization) {
-                
+
                 for (WorkRequest request : org.getWorkQueue().getWorkRequestList()) {
-                    Object[] row = new Object[4];
-                    row[0] = request;
-                    row[1] = request.getSender().getPerson().getName();
-                    row[2] = request.getReceiver() == null ? null : request.getReceiver().getPerson().getName();
-                    row[3] = request.getStatus();                    
-                    model.addRow(row);
+                    if (request.getReceiver() == null) {
+                        Object[] row = new Object[3];
+                        row[0] = request;
+                        row[1] = request.getSender().getPerson().getName();
+                        row[2] = request.getStatus();
+                        model.addRow(row);
+                    }
                 }
             }
         }
@@ -77,7 +79,6 @@ public class NewOrderJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("E-Procurement Panel");
 
         procTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -162,14 +163,15 @@ public class NewOrderJPanel extends javax.swing.JPanel {
 
     private void obtainBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obtainBtnActionPerformed
         int selectedRow = procTable.getSelectedRow();
-        
-        if (selectedRow < 0){
+
+        if (selectedRow < 0) {
             return;
         }
-        
-        WorkRequest request = (WorkRequest)procTable.getValueAt(selectedRow, 0);
+
+        WorkRequest request = (WorkRequest) procTable.getValueAt(selectedRow, 0);
         request.setReceiver(userAccount);
         request.setStatus("Pending");
+        userAccount.getWorkQueue().getWorkRequestList().add(request);
         populateAllOrders();
     }//GEN-LAST:event_obtainBtnActionPerformed
 

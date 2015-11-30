@@ -94,9 +94,6 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="8b" green="7d" red="60" type="rgb"/>
         </Property>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/UserInterface/SystemAdminRole/cart.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Update Inventory Item"/>
       </Properties>
     </Component>

@@ -114,7 +114,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Trebuchet MS" size="14" style="3"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Lodge A Complaint"/>
+        <Property name="text" type="java.lang.String" value="Manage Complaints"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="complaintBtnActionPerformed"/>

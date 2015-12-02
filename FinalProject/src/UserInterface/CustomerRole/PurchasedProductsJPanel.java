@@ -50,7 +50,6 @@ public class PurchasedProductsJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Your Purchased Products");
 
         purchasedProductsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -83,19 +82,18 @@ public class PurchasedProductsJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(backBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(127, 127, 127)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,14 +119,19 @@ public class PurchasedProductsJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
 
         for (Order o : network.getMasterOrderCatalog().getOrderCatalog()) {
-            if (o.getType().equals("c2r") && o.getBuyer() == account) {                
+            System.out.println("buyer" + o.getBuyer().getPerson().getName());
+            System.out.println("account" + account.getPerson().getName());
+            if (o.getBuyer().getUsername().equals(account.getUsername())) {  
+                System.out.println("check point 1");
                 for (OrderItem oi : o.getOrderItemList()) {
+                    System.out.println(oi.getProduct().getName());
                     Object row[] = new Object[4];
                     row[0] = oi.getProduct().getName();
                     row[1] = o.getSeller().getPerson().getName();
                     row[2] = "abc";
                     row[3] = oi.getQuantity();
                     dtm.addRow(row);
+                    
                 }
             }
         }

@@ -177,6 +177,7 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
             }
         }
         network.getMasterOrderCatalog().addOrder(o);
+        System.out.println(o.getBuyer().getPerson().getName());
     }//GEN-LAST:event_resolveBtnActionPerformed
 
 

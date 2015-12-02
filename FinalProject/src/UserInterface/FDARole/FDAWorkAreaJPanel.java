@@ -5,6 +5,13 @@
  */
 package UserInterface.FDARole;
 
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author user
@@ -14,8 +21,18 @@ public class FDAWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form FDAWorkAreaJPanel
      */
-    public FDAWorkAreaJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount account;
+    private Organization organization;
+    private Enterprise enterprise;
+    private Network network;
+    public FDAWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.account = account;
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.network = network;
     }
 
     /**
@@ -27,19 +44,96 @@ public class FDAWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        newComplaintBtn = new javax.swing.JButton();
+        pendingComplaintBtn = new javax.swing.JButton();
+        historyBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+
+        newComplaintBtn.setText("New Complaint");
+        newComplaintBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newComplaintBtnActionPerformed(evt);
+            }
+        });
+
+        pendingComplaintBtn.setText("My Pending Work");
+        pendingComplaintBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pendingComplaintBtnActionPerformed(evt);
+            }
+        });
+
+        historyBtn.setText("History");
+        historyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historyBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel2.setText("My Work Area - FDA");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(newComplaintBtn)
+                        .addGap(92, 92, 92)
+                        .addComponent(pendingComplaintBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(historyBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(64, 64, 64))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newComplaintBtn)
+                    .addComponent(pendingComplaintBtn))
+                .addGap(68, 68, 68)
+                .addComponent(historyBtn)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void historyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyBtnActionPerformed
+        ComplaintHistoryJPanel complaintHistoryFDAJPanel = new ComplaintHistoryJPanel(userProcessContainer, account, organization, enterprise, network);
+        userProcessContainer.add("complaintHistoryFDAJPanel", complaintHistoryFDAJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_historyBtnActionPerformed
+
+    private void newComplaintBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newComplaintBtnActionPerformed
+        NewComplaintJPanel newComplaintFDAJPanel = new NewComplaintJPanel(userProcessContainer, account, organization, enterprise, network);
+        userProcessContainer.add("newComplaintFDAJPanel", newComplaintFDAJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_newComplaintBtnActionPerformed
+
+    private void pendingComplaintBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pendingComplaintBtnActionPerformed
+        PendingComplaintJPanel pendingComplaintFDAJPanel = new PendingComplaintJPanel(userProcessContainer, account, organization, enterprise, network);
+        userProcessContainer.add("pendingComplaintFDAJPanel", pendingComplaintFDAJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_pendingComplaintBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton historyBtn;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton newComplaintBtn;
+    private javax.swing.JButton pendingComplaintBtn;
     // End of variables declaration//GEN-END:variables
 }

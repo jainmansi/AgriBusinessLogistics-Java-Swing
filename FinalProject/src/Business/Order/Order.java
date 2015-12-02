@@ -76,7 +76,5 @@ public class Order {
     }
     public void removeOrderItem(OrderItem o) {
         orderItemList.remove(o);
-    }
-
-    
+    }    
 }

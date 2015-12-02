@@ -86,7 +86,6 @@ public class NewPurchaseJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Make A New Purchase");
 
         retailerProductTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -221,11 +220,11 @@ public class NewPurchaseJPanel extends javax.swing.JPanel {
             order.setBuyer(account);
             order.setSeller(retailer);
             order.setType("c2r");
+            //network.getMasterOrderCatalog().addOrder(order);
 
             for (InventoryItem rii : retailer.getInventory().getInventoryList()) {
                 if (rii.getProduct().getName().equals(selectedProduct.getProduct().getName())) {
-                    OrderItem oi = new OrderItem();
-                    oi.setProduct(selectedProduct.getProduct());
+                    OrderItem oi = order.addOrderItem(selectedProduct.getProduct(), fetchedQty);
                     for(int i = 0; i < fetchedQty; i++){
                         oi.getRfid().add(rii.getRfid().remove());
                     }
@@ -233,10 +232,8 @@ public class NewPurchaseJPanel extends javax.swing.JPanel {
                 }
             }
             network.getMasterOrderCatalog().addOrder(order);
-            order = new Order();
             refreshOrderTable();
-        }
-    }
+        }    }
 
     public void refreshOrderTable() {
         populateProductTable();

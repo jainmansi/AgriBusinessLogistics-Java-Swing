@@ -9,7 +9,6 @@ import Business.Enterprise.Enterprise;
 import Business.Enterprise.Enterprise.EnterpriseType;
 import Business.Organization.Organization;
 import Business.Role.CustomerRole;
-import Business.Role.DistributorRole;
 import Business.Role.DriverRole;
 import Business.Role.FDARole;
 import Business.Role.FarmerRole;
@@ -180,9 +179,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         Organization org = enterprise.getOrganizationDirectory().createOrganization(type);
         if (type == Organization.Type.Supplier) {
             org.getSupportedRole().add(new SupplierRole());
-        } else if (type == Organization.Type.Distributor) {
-            org.getSupportedRole().add(new DistributorRole());
-        } else if (type == Organization.Type.Retailer) {
+        }  else if (type == Organization.Type.Retailer) {
             org.getSupportedRole().add(new RetailerRole());
         } else if (type == Organization.Type.Driver) {
             org.getSupportedRole().add(new DriverRole());

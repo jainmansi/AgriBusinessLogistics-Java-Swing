@@ -35,9 +35,7 @@ public class OrderItem {
 
     public void setRfid(Queue<RFID> rfid) {
         this.rfid = rfid;
-    }
-
-    
+    }   
 
     public void setProduct(Product product) {
         this.product = product;

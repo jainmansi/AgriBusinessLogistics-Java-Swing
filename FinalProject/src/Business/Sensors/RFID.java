@@ -17,17 +17,12 @@ public class RFID {
     private String rfid;
     private UserAccount supplier;
     private UserAccount retailer;
-    private UserAccount distributor;
     private UserAccount farmer;
     private UserAccount customer;
     private UserAccount driver;
     private Date expiryDate;
     private Date farmerShippingDate;
-    private Date supplierReceiveDate;
     private Date supplierShippingDate;
-    private Date distributorReceiveDate;
-    private Date distributorShippingDate;
-    private Date retailerReceiveDate;
     private Date productSoldDate;
 
     public String getRfid() {
@@ -65,14 +60,6 @@ public class RFID {
 
     public void setRetailer(UserAccount retailer) {
         this.retailer = retailer;
-    }
-
-    public UserAccount getDistributor() {
-        return distributor;
-    }
-
-    public void setDistributor(UserAccount distributor) {
-        this.distributor = distributor;
     }
 
     public UserAccount getFarmer() {
@@ -115,44 +102,12 @@ public class RFID {
         this.farmerShippingDate = farmerShippingDate;
     }
 
-    public Date getSupplierReceiveDate() {
-        return supplierReceiveDate;
-    }
-
-    public void setSupplierReceiveDate(Date supplierReceiveDate) {
-        this.supplierReceiveDate = supplierReceiveDate;
-    }
-
     public Date getSupplierShippingDate() {
         return supplierShippingDate;
     }
 
     public void setSupplierShippingDate(Date supplierShippingDate) {
         this.supplierShippingDate = supplierShippingDate;
-    }
-
-    public Date getDistributorReceiveDate() {
-        return distributorReceiveDate;
-    }
-
-    public void setDistributorReceiveDate(Date distributorReceiveDate) {
-        this.distributorReceiveDate = distributorReceiveDate;
-    }
-
-    public Date getDistributorShippingDate() {
-        return distributorShippingDate;
-    }
-
-    public void setDistributorShippingDate(Date distributorShippingDate) {
-        this.distributorShippingDate = distributorShippingDate;
-    }
-
-    public Date getRetailerReceiveDate() {
-        return retailerReceiveDate;
-    }
-
-    public void setRetailerReceiveDate(Date retailerReceiveDate) {
-        this.retailerReceiveDate = retailerReceiveDate;
     }
 
     public Date getProductSoldDate() {
@@ -162,6 +117,10 @@ public class RFID {
     public void setProductSoldDate(Date productSoldDate) {
         this.productSoldDate = productSoldDate;
     }
-    
+
+    @Override
+    public String toString() {
+        return rfid;
+    } 
     
 }

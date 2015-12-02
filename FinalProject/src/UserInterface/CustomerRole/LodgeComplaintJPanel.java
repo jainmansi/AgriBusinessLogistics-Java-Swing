@@ -5,9 +5,21 @@
  */
 package UserInterface.CustomerRole;
 
+import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.Order.Order;
+import Business.Order.OrderItem;
+import Business.Organization.FDAOrganization;
+import Business.Organization.Organization;
+import Business.Product.Product;
+import Business.Sensors.RFID;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.CustomerWorkRequest;
+import java.awt.CardLayout;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,11 +33,51 @@ public class LodgeComplaintJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount account;
     private Network network;
+
     public LodgeComplaintJPanel(JPanel userProcessContainer, UserAccount account, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.account = account;
         this.network = network;
+        populateProductCombo();
+    }
+
+    public void populateProductCombo() {
+        productComboBox.removeAllItems();
+        int a = 0;
+        for (Order o : network.getMasterOrderCatalog().getOrderCatalog()) {
+            for (OrderItem oi : o.getOrderItemList()) {
+                a++;
+                for (int i = 0; i < a; i++) {
+                    for (Order oc : network.getMasterOrderCatalog().getOrderCatalog()) {
+                        if (!o.getOrderItemList().get(i).equals(oi)) {
+                            productComboBox.addItem(oi.getProduct());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void populatePurchaseTable() {
+        DefaultTableModel dtm = (DefaultTableModel) purchaseJTable.getModel();
+        Product p = (Product) productComboBox.getSelectedItem();
+        dtm.setRowCount(0);
+        if (p != null) {
+            for (Order o : network.getMasterOrderCatalog().getOrderCatalog()) {
+                if (o.getBuyer().equals(account)) {
+                    for (OrderItem oi : o.getOrderItemList()) {
+                        for (RFID rfid : oi.getRfid()) {
+                            Object row[] = new Object[3];
+                            row[0] = rfid;
+                            row[1] = o.getSeller();
+                            row[2] = "abc";
+                            dtm.addRow(row);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -38,32 +90,180 @@ public class LodgeComplaintJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        productComboBox = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        purchaseJTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        issueTxtArea = new javax.swing.JTextArea();
+        backBtn = new javax.swing.JButton();
+        complaintBtn = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SystemAdminRole/cart.png"))); // NOI18N
         jLabel2.setText("Lodge Complaints Here");
+
+        productComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Product:");
+
+        purchaseJTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Date", "RFID", "Seller"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(purchaseJTable);
+
+        jLabel3.setText("Brief Description of issues:");
+
+        issueTxtArea.setColumns(20);
+        issueTxtArea.setRows(5);
+        jScrollPane2.setViewportView(issueTxtArea);
+
+        backBtn.setText("<< Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
+        complaintBtn.setText("Lodge Complaint");
+        complaintBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                complaintBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(productComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(complaintBtn)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(81, 81, 81)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(backBtn)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(jLabel2)
-                .addGap(255, 255, 255))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(productComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel3)))
+                .addGap(18, 18, 18)
+                .addComponent(complaintBtn)
+                .addGap(17, 17, 17)
+                .addComponent(backBtn)
+                .addGap(75, 75, 75))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backBtnActionPerformed
+
+    private void productComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productComboBoxActionPerformed
+        populatePurchaseTable();
+    }//GEN-LAST:event_productComboBoxActionPerformed
+
+    private void complaintBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_complaintBtnActionPerformed
+        String issue = issueTxtArea.getText();
+        CustomerWorkRequest request = new CustomerWorkRequest();
+        request.setIssue(issue);
+        Product product = (Product) productComboBox.getSelectedItem();
+        request.setProduct(product);
+        request.setSender(account);
+        Date date = new Date();
+        request.setRequestDate(date);
+        request.setStatus("sent");
+        
+        int selectedRow = purchaseJTable.getSelectedRow();
+        RFID rfid;
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Select a row", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            rfid = (RFID) purchaseJTable.getValueAt(selectedRow, 0);
+        }
+
+        request.setRfid(rfid);
+        Organization org = null;
+        for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (organization instanceof FDAOrganization) {
+                    org = organization;
+                    break;
+                }
+            }
+        }
+        if (org != null) {
+            org.getWorkQueue().getWorkRequestList().add(request);
+            account.getWorkQueue().getWorkRequestList().add(request);
+        }
+    }//GEN-LAST:event_complaintBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton complaintBtn;
+    private javax.swing.JTextArea issueTxtArea;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox productComboBox;
+    private javax.swing.JTable purchaseJTable;
     // End of variables declaration//GEN-END:variables
 }

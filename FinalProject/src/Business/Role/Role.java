@@ -21,7 +21,6 @@ public abstract class Role {
         Admin("Admin"),
         Customer("Customer"),
         Retailer("Retailer"),
-        Distributor("Distributor"),
         Supplier("Supplier"),
         Farmer("Farmer"),
         FDA("FDA"),

@@ -5,8 +5,6 @@
  */
 package Business.WorkQueue;
 
-import Business.Order.Order;
-
 /**
  *
  * @author user

@@ -26,7 +26,6 @@ public abstract class Organization {
     public enum Type{
         Admin("Admin Organization"), 
         Customer("Customer Organization"), 
-        Distributor("Distributor Organization"),
         Supplier("Supplier Organization"),
         Farmer("Farmer Organization"),
         FDA("FDA Organization"),

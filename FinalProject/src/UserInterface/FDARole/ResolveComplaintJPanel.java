@@ -5,6 +5,14 @@
  */
 package UserInterface.FDARole;
 
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.CustomerWorkRequest;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author user
@@ -14,8 +22,18 @@ public class ResolveComplaintJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ResolveComplaintJPanel
      */
-    public ResolveComplaintJPanel() {
+    private JPanel userProcessContainer;
+    private UserAccount account;
+    private CustomerWorkRequest customerWorkRequest;
+    private PendingComplaintJPanel pcjp;
+    private Network network;
+    public ResolveComplaintJPanel(JPanel userProcessContainer, UserAccount account, Network network, CustomerWorkRequest customerWorkRequest, PendingComplaintJPanel pcjp) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.account = account;
+        this.pcjp = pcjp;
+        this.customerWorkRequest = customerWorkRequest;
+        this.network = network;
     }
 
     /**
@@ -27,19 +45,68 @@ public class ResolveComplaintJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        resultTxtField = new javax.swing.JTextField();
+        resolveBtn = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        jLabel1.setText("Result:");
+
+        resolveBtn.setText("Resolve");
+        resolveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resolveBtnActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("<< Back");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel1)
+                        .addGap(46, 46, 46)
+                        .addComponent(resultTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addComponent(resolveBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton2)))
+                .addGap(74, 74, 74))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(resultTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addComponent(resolveBtn)
+                .addGap(39, 39, 39)
+                .addComponent(jButton2)
+                .addGap(82, 82, 82))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void resolveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resolveBtnActionPerformed
+        String result = resultTxtField.getText();
+        customerWorkRequest.setMessage(result);
+        JOptionPane.showMessageDialog(null, "Problem Resolved Successfully!");
+        resolveBtn.setEnabled(false);
+    }//GEN-LAST:event_resolveBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton resolveBtn;
+    private javax.swing.JTextField resultTxtField;
     // End of variables declaration//GEN-END:variables
 }

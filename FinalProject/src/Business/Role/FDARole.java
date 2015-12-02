@@ -21,7 +21,7 @@ public class FDARole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network, EcoSystem business) {
-        return new FDAWorkAreaJPanel();
+        return new FDAWorkAreaJPanel(userProcessContainer, account, organization, enterprise, network);
     }
     
 }

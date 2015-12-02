@@ -84,7 +84,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         complaintBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
-        complaintBtn.setText("Lodge A Complaint");
+        complaintBtn.setText("Manage Complaints");
         complaintBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 complaintBtnActionPerformed(evt);
@@ -150,8 +150,8 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_profileBtnActionPerformed
 
     private void complaintBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_complaintBtnActionPerformed
-        LodgeComplaintJPanel lodgeComplaintCustJPanel = new LodgeComplaintJPanel(userProcessContainer, account, network);
-        userProcessContainer.add("lodgeComplaintCustJPanel", lodgeComplaintCustJPanel);
+        ComplaintJPanel complaintCustJPanel = new ComplaintJPanel(userProcessContainer, account, network);
+        userProcessContainer.add("complaintCustJPanel", complaintCustJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_complaintBtnActionPerformed

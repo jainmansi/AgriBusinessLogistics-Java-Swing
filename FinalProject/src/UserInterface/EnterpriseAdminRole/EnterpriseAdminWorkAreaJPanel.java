@@ -5,6 +5,7 @@
  */
 package UserInterface.EnterpriseAdminRole;
 
+import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -20,10 +21,12 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     Enterprise enterprise;
-    public EnterpriseAdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    EcoSystem system;
+    public EnterpriseAdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise, EcoSystem system) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        this.system = system;
         valueLabel.setText(enterprise.getName());
         
     }
@@ -58,33 +61,48 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 51));
         jLabel2.setText("Enterprise Admin Work Area");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel1.setText("Enterprise Name:");
 
+        valueLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         valueLabel.setText("<value>");
 
+        manageOrgBtn.setBackground(new java.awt.Color(51, 51, 51));
+        manageOrgBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        manageOrgBtn.setForeground(new java.awt.Color(255, 255, 255));
         manageOrgBtn.setText("Manage Organization >>");
-        manageOrgBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageOrgBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        manageOrgBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         manageOrgBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageOrgBtnActionPerformed(evt);
             }
         });
 
+        manageEmployeeBtn.setBackground(new java.awt.Color(51, 51, 51));
+        manageEmployeeBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        manageEmployeeBtn.setForeground(new java.awt.Color(255, 255, 255));
         manageEmployeeBtn.setText("Manage Employees >>");
-        manageEmployeeBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageEmployeeBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        manageEmployeeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         manageEmployeeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageEmployeeBtnActionPerformed(evt);
             }
         });
 
+        manageUsersBtn.setBackground(new java.awt.Color(51, 51, 51));
+        manageUsersBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        manageUsersBtn.setForeground(new java.awt.Color(255, 255, 255));
         manageUsersBtn.setText("Manage Users >>");
-        manageUsersBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageUsersBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        manageUsersBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         manageUsersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageUsersBtnActionPerformed(evt);
@@ -98,19 +116,19 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
+                        .addGap(238, 238, 238)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(valueLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
+                        .addGap(200, 200, 200)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(245, 245, 245)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(manageEmployeeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(manageOrgBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(manageUsersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(manageEmployeeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(manageOrgBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(manageUsersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -118,17 +136,17 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(valueLabel))
-                .addGap(28, 28, 28)
-                .addComponent(manageOrgBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(manageEmployeeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(manageUsersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addGap(42, 42, 42)
+                .addComponent(manageOrgBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(manageEmployeeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(manageUsersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -140,15 +158,15 @@ public class EnterpriseAdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_manageEmployeeBtnActionPerformed
 
     private void manageOrgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrgBtnActionPerformed
-        ManageOrganizationJPanel manageEmployeeJPanel = new ManageOrganizationJPanel(userProcessContainer, enterprise);
-        userProcessContainer.add("manageEmployeeJPanel", manageEmployeeJPanel);
+        ManageOrganizationJPanel manageOrgJPanel = new ManageOrganizationJPanel(userProcessContainer, enterprise);
+        userProcessContainer.add("manageOrgJPanel", manageOrgJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageOrgBtnActionPerformed
 
     private void manageUsersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUsersBtnActionPerformed
-        ManageUserAccountsJPanel manageEmployeeJPanel = new ManageUserAccountsJPanel(userProcessContainer, enterprise);
-        userProcessContainer.add("manageEmployeeJPanel", manageEmployeeJPanel);
+        ManageUserAccountsJPanel manageUserAccountJPanel = new ManageUserAccountsJPanel(userProcessContainer, enterprise, system);
+        userProcessContainer.add("manageUserAccountJPanel", manageUserAccountJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageUsersBtnActionPerformed

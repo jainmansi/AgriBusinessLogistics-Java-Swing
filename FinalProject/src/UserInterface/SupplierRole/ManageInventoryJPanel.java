@@ -42,7 +42,7 @@ public class ManageInventoryJPanel extends javax.swing.JPanel {
         for (InventoryItem item : account.getInventory().getInventoryList()) {
             Object row[] = new Object[4];
             row[0] = item;
-            row[1] = item.getProduct().getId();
+            row[1] = "1";
             row[2] = item.getQuantity();
             row[3] = item.getThreshold();
             dtm.addRow(row);

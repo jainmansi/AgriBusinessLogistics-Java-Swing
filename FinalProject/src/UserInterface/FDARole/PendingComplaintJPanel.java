@@ -29,6 +29,7 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
     private Organization organization;
     private Enterprise enterprise;
     private Network network;
+
     public PendingComplaintJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -38,21 +39,24 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
         this.network = network;
         populateComplaintTable();
     }
-    
-    public void populateComplaintTable(){
+
+    public void populateComplaintTable() {
         DefaultTableModel model = (DefaultTableModel) complaintTable.getModel();
 
         model.setRowCount(0);
-        
-                for (WorkRequest request : account.getWorkQueue().getWorkRequestList()) {
-                    CustomerWorkRequest custWorkRequest = (CustomerWorkRequest)request;
-                    Object[] row = new Object[4];
-                    row[0] = custWorkRequest;
-                    row[1] = custWorkRequest.getRfid();
-                    row[2] = request.getRequestDate();
-                    row[3] = request.getSender();
 
-                    model.addRow(row);
+        for (WorkRequest request : account.getWorkQueue().getWorkRequestList()) {
+            CustomerWorkRequest custWorkRequest = (CustomerWorkRequest) request;
+            
+                Object[] row = new Object[5];
+                row[0] = custWorkRequest;
+                row[1] = custWorkRequest.getRfid();
+                row[2] = request.getRequestDate();
+                row[3] = request.getSender();
+                row[4] = request.getStatus();
+
+                model.addRow(row);
+            
         }
     }
 
@@ -85,6 +89,7 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
         retailerBtn = new javax.swing.JButton();
         supplierBtn = new javax.swing.JButton();
         farmerBtn = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         complaintTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,29 +116,45 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel1.setText("Retailer:");
 
+        retailerTxtField.setEditable(false);
         retailerTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 retailerTxtFieldActionPerformed(evt);
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel2.setText("Supplier:");
 
+        retSoldTxtField.setEditable(false);
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel3.setText("Farmer:");
 
+        supplierTxtField.setEditable(false);
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel4.setText("Sold by Retailer On:");
 
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel5.setText("Sold by Supplier On:");
 
+        suppSoldTxtField.setEditable(false);
         suppSoldTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 suppSoldTxtFieldActionPerformed(evt);
             }
         });
 
+        farmerTxtField.setEditable(false);
+
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel6.setText("Sold by Farmer On:");
+
+        farSoldTxtField.setEditable(false);
 
         resolveBtn.setText("Resolve This Issue >>");
         resolveBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -157,8 +178,22 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
         });
 
         supplierBtn.setText("Supplier Details");
+        supplierBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supplierBtnActionPerformed(evt);
+            }
+        });
 
         farmerBtn.setText("Farmer Details");
+        farmerBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                farmerBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel7.setText("Pending List of Complaints");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -166,45 +201,56 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(29, 29, 29)
+                                    .addComponent(backBtn))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(56, 56, 56)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel6))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(76, 76, 76)
+                                            .addComponent(trackBtn)
+                                            .addGap(50, 50, 50))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(retSoldTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(retailerTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(supplierTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(suppSoldTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(farmerTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(farSoldTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(27, 27, 27)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(supplierBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(retailerBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(farmerBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(59, 59, 59))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(22, 22, 22)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(backBtn)
-                        .addGap(117, 117, 117)
-                        .addComponent(resolveBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(trackBtn)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel6))
-                                .addGap(76, 76, 76)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(retSoldTxtField)
-                                    .addComponent(retailerTxtField)
-                                    .addComponent(supplierTxtField)
-                                    .addComponent(suppSoldTxtField)
-                                    .addComponent(farmerTxtField)
-                                    .addComponent(farSoldTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(retailerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(supplierBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(farmerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38))
+                        .addGap(169, 169, 169)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(trackBtn)
@@ -250,21 +296,21 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
 
     private void trackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trackBtnActionPerformed
         int selectedRow = complaintTable.getSelectedRow();
-        
-        if (selectedRow < 0){
+
+        if (selectedRow < 0) {
             return;
         }
-        
-        CustomerWorkRequest request = (CustomerWorkRequest)complaintTable.getValueAt(selectedRow, 0);
-     
+
+        CustomerWorkRequest request = (CustomerWorkRequest) complaintTable.getValueAt(selectedRow, 0);
+
         retailerTxtField.setText(request.getRfid().getRetailer().getPerson().getName());
         retSoldTxtField.setText(String.valueOf(request.getRfid().getProductSoldDate()));
         supplierTxtField.setText(request.getRfid().getSupplier().getPerson().getName());
-        supplierTxtField.setText(String.valueOf(request.getRfid().getSupplierShippingDate()));
+        suppSoldTxtField.setText(String.valueOf(request.getRfid().getSupplierShippingDate()));
         farmerTxtField.setText(request.getRfid().getFarmer().getPerson().getName());
         farSoldTxtField.setText(String.valueOf(request.getRfid().getFarmerShippingDate()));
-               
-        
+
+
     }//GEN-LAST:event_trackBtnActionPerformed
 
     private void retailerTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retailerTxtFieldActionPerformed
@@ -277,15 +323,15 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
 
     private void resolveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resolveBtnActionPerformed
         int selectedRow = complaintTable.getSelectedRow();
-        
-        if (selectedRow < 0){
+
+        if (selectedRow < 0) {
             return;
         }
-        
-        CustomerWorkRequest request = (CustomerWorkRequest)complaintTable.getValueAt(selectedRow, 0);
-     
+
+        CustomerWorkRequest request = (CustomerWorkRequest) complaintTable.getValueAt(selectedRow, 0);
+
         request.setStatus("Processing");
-        
+
         ResolveComplaintJPanel resolveComplaintFDAJPanel = new ResolveComplaintJPanel(userProcessContainer, account, network, request, this);
         userProcessContainer.add("resolveComplaintFDAJPanel", resolveComplaintFDAJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -293,7 +339,18 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_resolveBtnActionPerformed
 
     private void retailerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retailerBtnActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = complaintTable.getSelectedRow();
+
+        if (selectedRow < 0) {
+            return;
+        }
+
+        CustomerWorkRequest request = (CustomerWorkRequest) complaintTable.getValueAt(selectedRow, 0);
+        UserAccount ua = request.getRfid().getRetailer();
+        MoreDetailsJPanel moreDetailsFDAJPanel = new MoreDetailsJPanel(userProcessContainer, ua);
+        userProcessContainer.add("moreDetailsFDAJPanel", moreDetailsFDAJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_retailerBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -301,6 +358,36 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void supplierBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierBtnActionPerformed
+        int selectedRow = complaintTable.getSelectedRow();
+
+        if (selectedRow < 0) {
+            return;
+        }
+
+        CustomerWorkRequest request = (CustomerWorkRequest) complaintTable.getValueAt(selectedRow, 0);
+        UserAccount ua = request.getRfid().getSupplier();
+        MoreDetailsJPanel moreDetailsFDAJPanel = new MoreDetailsJPanel(userProcessContainer, ua);
+        userProcessContainer.add("moreDetailsFDAJPanel", moreDetailsFDAJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_supplierBtnActionPerformed
+
+    private void farmerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_farmerBtnActionPerformed
+        int selectedRow = complaintTable.getSelectedRow();
+
+        if (selectedRow < 0) {
+            return;
+        }
+
+        CustomerWorkRequest request = (CustomerWorkRequest) complaintTable.getValueAt(selectedRow, 0);
+        UserAccount ua = request.getRfid().getFarmer();
+        MoreDetailsJPanel moreDetailsFDAJPanel = new MoreDetailsJPanel(userProcessContainer, ua);
+        userProcessContainer.add("moreDetailsFDAJPanel", moreDetailsFDAJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_farmerBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -315,6 +402,7 @@ public class PendingComplaintJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton resolveBtn;
     private javax.swing.JTextField retSoldTxtField;

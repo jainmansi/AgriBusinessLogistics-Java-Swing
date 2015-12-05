@@ -74,6 +74,7 @@ public class NewComplaintJPanel extends javax.swing.JPanel {
         complaintsJTable = new javax.swing.JTable();
         assignBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         complaintsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,6 +113,10 @@ public class NewComplaintJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel7.setText("New Complaint");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,13 +131,18 @@ public class NewComplaintJPanel extends javax.swing.JPanel {
                         .addComponent(assignBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(backBtn)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(backBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(assignBtn)
@@ -167,6 +177,7 @@ public class NewComplaintJPanel extends javax.swing.JPanel {
     private javax.swing.JButton assignBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JTable complaintsJTable;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

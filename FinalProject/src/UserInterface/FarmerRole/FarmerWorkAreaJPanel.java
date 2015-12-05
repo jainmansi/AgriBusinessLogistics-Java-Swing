@@ -50,40 +50,48 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        viewReportBtn.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        viewReportBtn.setText("View Report");
-        viewReportBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        viewReportBtn.setBackground(new java.awt.Color(51, 51, 51));
+        viewReportBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        viewReportBtn.setForeground(new java.awt.Color(255, 255, 255));
+        viewReportBtn.setText("View Report >>");
+        viewReportBtn.setBorder(new javax.swing.border.MatteBorder(null));
         viewReportBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewReportBtnActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setText("Farmer Work Area");
+        jLabel2.setText("My Work Area - Farmer Role");
 
-        manageOrdersJPanel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        manageOrdersJPanel.setText("Manage All Orders");
-        manageOrdersJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageOrdersJPanel.setBackground(new java.awt.Color(51, 51, 51));
+        manageOrdersJPanel.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        manageOrdersJPanel.setForeground(new java.awt.Color(255, 255, 255));
+        manageOrdersJPanel.setText("Manage All Orders >>");
+        manageOrdersJPanel.setBorder(new javax.swing.border.MatteBorder(null));
         manageOrdersJPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageOrdersJPanelActionPerformed(evt);
             }
         });
 
-        manageProductsBtn.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        manageProductsBtn.setText("Manage Product Catalog");
-        manageProductsBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageProductsBtn.setBackground(new java.awt.Color(51, 51, 51));
+        manageProductsBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        manageProductsBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageProductsBtn.setText("Manage Product Catalog >>");
+        manageProductsBtn.setBorder(new javax.swing.border.MatteBorder(null));
         manageProductsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageProductsBtnActionPerformed(evt);
             }
         });
 
-        manageInventoryJPanel.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        manageInventoryJPanel.setText("Manage Warehouse");
-        manageInventoryJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageInventoryJPanel.setBackground(new java.awt.Color(51, 51, 51));
+        manageInventoryJPanel.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        manageInventoryJPanel.setForeground(new java.awt.Color(255, 255, 255));
+        manageInventoryJPanel.setText("Manage Warehouse >>");
+        manageInventoryJPanel.setBorder(new javax.swing.border.MatteBorder(null));
         manageInventoryJPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageInventoryJPanelActionPerformed(evt);
@@ -95,33 +103,32 @@ public class FarmerWorkAreaJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(253, 253, 253)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(manageProductsBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                            .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewReportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(108, 108, 108))
+                    .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manageProductsBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                    .addComponent(viewReportBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(252, 252, 252))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(193, 193, 193))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel2)
-                .addGap(34, 34, 34)
-                .addComponent(manageProductsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addGap(65, 65, 65)
+                .addComponent(manageProductsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(manageInventoryJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(manageOrdersJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

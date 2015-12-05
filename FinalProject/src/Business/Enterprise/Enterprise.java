@@ -15,6 +15,7 @@ import Business.Organization.OrganizationDirectory;
 public abstract class Enterprise extends Organization {
     private EnterpriseType enterpriseType;
     private OrganizationDirectory organizationDirectory;
+    private String date;
     
     public Enterprise(String name, EnterpriseType type) {
         super(name);
@@ -49,4 +50,13 @@ public abstract class Enterprise extends Organization {
     public OrganizationDirectory getOrganizationDirectory() {
         return organizationDirectory;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
 }

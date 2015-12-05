@@ -14,6 +14,7 @@ import Business.Product.Product;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.SupplierReceivedWorkRequest;
 import java.awt.CardLayout;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -232,7 +233,7 @@ public class PlaceOrderJPanel extends javax.swing.JPanel {
             request.setReceiver(receiver);
             request.getOrder().setBuyer(account);
             request.getOrder().setType("s2r");
-            Date date = new Date();
+            String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
             request.setRequestDate(date);
             request.setStatus("Sent");
             int fetchedQty = (Integer) qtySpinner.getValue();

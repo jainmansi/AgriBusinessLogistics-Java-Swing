@@ -13,14 +13,10 @@ import Business.Sensors.RFID;
  */
 public class Product {
     private String name;
-    private int id;
     private int price;
     private static int counter = 0;
     
-    public Product(){
-        ++counter;
-        id = counter;
-    }
+   
 
     public void setName(String name) {
         this.name = name;
@@ -37,10 +33,7 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
-
-    public int getId() {
-        return id;
-    }
+    
 
     @Override
     public String toString() {

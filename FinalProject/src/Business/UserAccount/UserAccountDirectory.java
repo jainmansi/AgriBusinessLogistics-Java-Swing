@@ -5,6 +5,9 @@
  */
 package Business.UserAccount;
 
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
 import Business.Person.Person;
 import Business.Role.Role;
 import java.util.ArrayList;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
  * @author user
  */
 public class UserAccountDirectory {
+
     private ArrayList<UserAccount> userAccountList;
 
     public UserAccountDirectory() {
@@ -23,18 +27,19 @@ public class UserAccountDirectory {
     public ArrayList<UserAccount> getUserAccountList() {
         return userAccountList;
     }
-    
-    public UserAccount authenticateUser(String username, String password){
-        for (UserAccount ua : userAccountList)
-            if (ua.getUsername().equals(username) 
-                && ua.getPassword().equals(password)){
+
+    public UserAccount authenticateUser(String username, String password) {
+        for (UserAccount ua : userAccountList) {
+            if (ua.getUsername().equals(username)
+                    && ua.getPassword().equals(password)) {
                 return ua;
             }
+        }
         return null;
     }
-    
-    public UserAccount createUserAccount(String username, String password, 
-                                        Person person, Role role){
+
+    public UserAccount createUserAccount(String username, String password,
+            Person person, Role role) {
         UserAccount userAccount = new UserAccount();
         userAccount.setUsername(username);
         userAccount.setPassword(password);
@@ -43,13 +48,15 @@ public class UserAccountDirectory {
         userAccountList.add(userAccount);
         return userAccount;
     }
+
     
-    
-    public boolean checkIfUsernameIsUnique(String username){
-        for (UserAccount ua : userAccountList){
-            if (ua.getUsername().equals(username))
-                return false;
+
+    public boolean checkIfUsernameIsUnique(String username) {
+        for (UserAccount ua : userAccountList) {
+            if (ua.getUsername().equals(username)) {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 }

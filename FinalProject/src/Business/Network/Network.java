@@ -16,6 +16,7 @@ import Business.UserAccount.UserAccountDirectory;
  */
 public class Network{
     private String name;
+    private String date;
     private EnterpriseDirectory enterpriseDirectory;
     private MasterOrderCatalog masterOrderCatalog;
     private PersonDirectory personDirectory;
@@ -63,6 +64,15 @@ public class Network{
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
 
     @Override
     public String toString() {

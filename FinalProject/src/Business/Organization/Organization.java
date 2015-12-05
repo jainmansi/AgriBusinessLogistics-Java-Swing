@@ -20,6 +20,7 @@ public abstract class Organization {
     private WorkQueue workQueue;
     private PersonDirectory personDirectory;
     private UserAccountDirectory userAccountDirectory;
+    private String creationDate;
     private int organizationID;
     private static int counter;
     
@@ -29,6 +30,7 @@ public abstract class Organization {
         Supplier("Supplier Organization"),
         Farmer("Farmer Organization"),
         FDA("FDA Organization"),
+        FDAAdmin("FDA Admin Organization"),
         Driver("Driver Organization"),
         Retailer("Retailer Organization");
         private String value;
@@ -39,6 +41,7 @@ public abstract class Organization {
             return value;
         }
     }
+    
 
     public Organization(String name) {
         this.name = name;
@@ -78,6 +81,15 @@ public abstract class Organization {
     public void setWorkQueue(WorkQueue workQueue) {
         this.workQueue = workQueue;
     }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String date) {
+        this.creationDate = date;
+    }
+    
 
     @Override
     public String toString() {

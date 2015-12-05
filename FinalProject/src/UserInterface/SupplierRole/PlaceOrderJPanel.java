@@ -14,6 +14,7 @@ import Business.Product.Product;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.SupplierSentWorkRequest;
 import java.awt.CardLayout;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -215,7 +216,7 @@ public class PlaceOrderJPanel extends javax.swing.JPanel {
     private void placeOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placeOrderBtnActionPerformed
         
         SupplierSentWorkRequest request = new SupplierSentWorkRequest();
-        Date date = new Date();
+        String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
         request.setRequestDate(date);
         request.setSender(account);
         request.setStatus("Sent");

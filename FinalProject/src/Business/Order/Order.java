@@ -20,6 +20,7 @@ public class Order {
     private UserAccount buyer;
     private UserAccount seller;
     private String type;
+    private String date;
 
     public Order() {
         count++;
@@ -58,6 +59,15 @@ public class Order {
     public void setOrderItemList(ArrayList<OrderItem> orderItemList) {
         this.orderItemList = orderItemList;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
 
     public int getOrderNumber() {
         return orderNumber;

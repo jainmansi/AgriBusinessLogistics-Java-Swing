@@ -20,10 +20,10 @@ public class RFID {
     private UserAccount farmer;
     private UserAccount customer;
     private UserAccount driver;
-    private Date expiryDate;
-    private Date farmerShippingDate;
-    private Date supplierShippingDate;
-    private Date productSoldDate;
+    private String expiryDate;
+    private String farmerShippingDate;
+    private String supplierShippingDate;
+    private String productSoldDate;
 
     public String getRfid() {
         return rfid;
@@ -86,37 +86,39 @@ public class RFID {
         this.driver = driver;
     }
 
-    public Date getExpiryDate() {
+    public String getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
 
-    public Date getFarmerShippingDate() {
+    public String getFarmerShippingDate() {
         return farmerShippingDate;
     }
 
-    public void setFarmerShippingDate(Date farmerShippingDate) {
+    public void setFarmerShippingDate(String farmerShippingDate) {
         this.farmerShippingDate = farmerShippingDate;
     }
 
-    public Date getSupplierShippingDate() {
+    public String getSupplierShippingDate() {
         return supplierShippingDate;
     }
 
-    public void setSupplierShippingDate(Date supplierShippingDate) {
+    public void setSupplierShippingDate(String supplierShippingDate) {
         this.supplierShippingDate = supplierShippingDate;
     }
 
-    public Date getProductSoldDate() {
+    public String getProductSoldDate() {
         return productSoldDate;
     }
 
-    public void setProductSoldDate(Date productSoldDate) {
+    public void setProductSoldDate(String productSoldDate) {
         this.productSoldDate = productSoldDate;
     }
+
+    
 
     @Override
     public String toString() {

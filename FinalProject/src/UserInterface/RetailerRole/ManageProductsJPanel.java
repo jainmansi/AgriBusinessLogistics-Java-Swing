@@ -39,7 +39,7 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
             for (Product p : account.getProductCatalog().getProductList()) {
                 Object row[] = new Object[3];
                 row[0] = p;
-                row[1] = p.getId();
+                row[1] = "1";
                 row[2] = p.getPrice();
                 dtm.addRow(row);
         }

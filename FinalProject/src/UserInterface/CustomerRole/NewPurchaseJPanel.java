@@ -18,9 +18,14 @@ import Business.Organization.RetailerOrganization;
 import Business.Sensors.RFID;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Queue;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -47,7 +52,12 @@ public class NewPurchaseJPanel extends javax.swing.JPanel {
         this.network = network;
         this.business = business;
         populateRetailerComboBox();
-
+        int min = 0;
+        int max = 1000;
+        int step = 1;
+        int initValue = 1;
+        SpinnerModel model = new SpinnerNumberModel(initValue, min, max, step);
+        quantitySpinner.setModel(model);
     }
 
     public void populateRetailerComboBox() {
@@ -83,6 +93,15 @@ public class NewPurchaseJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
         buyBtn = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        priceTxtField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        qtyTxtField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        totalTxtField = new javax.swing.JTextField();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
@@ -119,6 +138,17 @@ public class NewPurchaseJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel1.setText("Retailer:");
 
+        quantitySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                quantitySpinnerStateChanged(evt);
+            }
+        });
+        quantitySpinner.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                quantitySpinnerKeyPressed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel4.setText("Quantity:");
 
@@ -132,41 +162,104 @@ public class NewPurchaseJPanel extends javax.swing.JPanel {
 
         buyBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 12)); // NOI18N
         buyBtn.setText("Make Purchase");
+        buyBtn.setEnabled(false);
         buyBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buyBtnActionPerformed(evt);
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bill", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 1, 14), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        jLabel3.setText("Price per Item:");
+
+        priceTxtField.setEditable(false);
+
+        jLabel5.setText("Quantity Selected:");
+
+        qtyTxtField.setEditable(false);
+
+        jLabel6.setText("Total Bill:");
+
+        totalTxtField.setEditable(false);
+        totalTxtField.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel3))
+                .addGap(57, 57, 57)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(priceTxtField)
+                    .addComponent(qtyTxtField)
+                    .addComponent(totalTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(priceTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(qtyTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(totalTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(98, 98, 98)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(backBtn)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
+                                .addGap(216, 216, 216)
+                                .addComponent(jLabel1)
+                                .addGap(30, 30, 30)
+                                .addComponent(retailerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(198, 198, 198)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(247, 247, 247)
                                 .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(170, 170, 170)
-                                .addComponent(buyBtn))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(147, 147, 147))
+                                .addGap(27, 27, 27)
+                                .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(193, 193, 193)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(retailerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(287, 287, 287))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buyBtn)
+                        .addGap(242, 242, 242))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(180, 180, 180)
-                .addComponent(jLabel2))
+                .addGap(56, 56, 56)
+                .addComponent(backBtn)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,16 +270,19 @@ public class NewPurchaseJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(retailerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buyBtn))
-                .addGap(42, 42, 42)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buyBtn)
+                .addGap(18, 18, 18)
                 .addComponent(backBtn)
-                .addGap(34, 34, 34))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -220,24 +316,64 @@ public class NewPurchaseJPanel extends javax.swing.JPanel {
             order.setBuyer(account);
             order.setSeller(retailer);
             order.setType("c2r");
+            String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
+            order.setDate(date);
             //network.getMasterOrderCatalog().addOrder(order);
 
             for (InventoryItem rii : retailer.getInventory().getInventoryList()) {
                 if (rii.getProduct().getName().equals(selectedProduct.getProduct().getName())) {
                     OrderItem oi = order.addOrderItem(selectedProduct.getProduct(), fetchedQty);
                     for(int i = 0; i < fetchedQty; i++){
-                        oi.getRfid().add(rii.getRfid().remove());
+                        RFID rfid = rii.getRfid().remove();
+                        rfid.setCustomer(account);
+                        rfid.setRetailer(retailer);
+                        rfid.setProductSoldDate(date);
+                        oi.getRfid().add(rfid);
                     }
                     rii.setQuantity(rii.getRfid().size());
                 }
             }
             network.getMasterOrderCatalog().addOrder(order);
             refreshOrderTable();
-        }    }
+        }    
+    }
 
     public void refreshOrderTable() {
         populateProductTable();
     }//GEN-LAST:event_buyBtnActionPerformed
+
+    private void quantitySpinnerKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantitySpinnerKeyPressed
+        
+        generateBill();
+    }//GEN-LAST:event_quantitySpinnerKeyPressed
+
+    public void generateBill(){
+        int selectedRow = retailerProductTable.getSelectedRow();
+        InventoryItem selectedProduct;
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Select a row", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            selectedProduct = (InventoryItem) retailerProductTable.getValueAt(selectedRow, 0);
+        }
+        int fetchedQty = (Integer) quantitySpinner.getValue();
+        if (fetchedQty <= 0) {
+            JOptionPane.showMessageDialog(this, "Selected at least 1 quantity", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (fetchedQty > selectedProduct.getQuantity()) {
+            JOptionPane.showMessageDialog(this, "Quantity > Availability!!", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        int price =selectedProduct.getProduct().getPrice();
+        int qty =fetchedQty;
+        int total = price * qty;
+        priceTxtField.setText(String.valueOf(selectedProduct.getProduct().getPrice()));
+        qtyTxtField.setText(String.valueOf(fetchedQty));
+        totalTxtField.setText(String.valueOf(total));
+        buyBtn.setEnabled(true);
+    }
+    private void quantitySpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_quantitySpinnerStateChanged
+        generateBill();
+    }//GEN-LAST:event_quantitySpinnerStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -245,11 +381,18 @@ public class NewPurchaseJPanel extends javax.swing.JPanel {
     private javax.swing.JButton buyBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField priceTxtField;
+    private javax.swing.JTextField qtyTxtField;
     private javax.swing.JSpinner quantitySpinner;
     private javax.swing.JComboBox retailerComboBox;
     private javax.swing.JTable retailerProductTable;
+    private javax.swing.JTextField totalTxtField;
     // End of variables declaration//GEN-END:variables
 
     private void populateProductTable() {

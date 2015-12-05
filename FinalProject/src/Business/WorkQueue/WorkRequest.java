@@ -19,8 +19,8 @@ public abstract class WorkRequest {
     private UserAccount sender;
     private UserAccount receiver;
     private String status;
-    private Date requestDate;
-    private Date resolveDate;
+    private String requestDate;
+    private String resolveDate;
     private Product product;
     private Order order;
     
@@ -78,19 +78,21 @@ public abstract class WorkRequest {
         this.status = status;
     }
 
-    public Date getRequestDate() {
+    public String getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(Date requestDate) {
+    public void setRequestDate(String requestDate) {
         this.requestDate = requestDate;
     }
 
-    public Date getResolveDate() {
+    public String getResolveDate() {
         return resolveDate;
     }
 
-    public void setResolveDate(Date resolveDate) {
+    public void setResolveDate(String resolveDate) {
         this.resolveDate = resolveDate;
     }
+
+    
 }

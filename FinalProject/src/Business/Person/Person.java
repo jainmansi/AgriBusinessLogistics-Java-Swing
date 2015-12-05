@@ -12,6 +12,16 @@ package Business.Person;
 public class Person {
     private String name;
     private int id;
+    private int contact;
+    private String email;
+
+    public int getContact() {
+        return contact;
+    }
+
+    public void setContact(int contact) {
+        this.contact = contact;
+    }
     private static int count = 1;
 
     public Person() {
@@ -31,6 +41,15 @@ public class Person {
     public String getName() {
         return name;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
 
     @Override
     public String toString() {

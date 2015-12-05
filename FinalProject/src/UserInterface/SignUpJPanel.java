@@ -14,6 +14,9 @@ import Business.Organization.Organization;
 import Business.Person.Person;
 import Business.Role.CustomerRole;
 import Business.UserAccount.UserAccount;
+import Business.Utils.MyEmailVerifier;
+import Business.Utils.MyPhoneNumberVerifier;
+import Business.Utils.MyStringVerifier;
 import java.awt.CardLayout;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -40,6 +43,16 @@ public class SignUpJPanel extends javax.swing.JPanel {
         this.dB4OUtil = dB4OUtil;
         showCaptchTxtField.setText(captcha);
         populateNetworkComboBox();
+
+        MyStringVerifier myStringVerifier = new MyStringVerifier();
+        MyPhoneNumberVerifier myPhoneNumberVerifier = new MyPhoneNumberVerifier();
+        MyEmailVerifier myEmailVerifier = new MyEmailVerifier();
+        nameTxtField.setInputVerifier(myStringVerifier);
+        contactTxtField.setInputVerifier(myPhoneNumberVerifier);
+        emailTxtField.setInputVerifier(myEmailVerifier);
+        usernameTxtField.setInputVerifier(myStringVerifier);
+        passwordField.setInputVerifier(myStringVerifier);
+
     }
 
     public static String generateCaptcha() {
@@ -77,15 +90,20 @@ public class SignUpJPanel extends javax.swing.JPanel {
         nameTxtField = new javax.swing.JTextField();
         usernameTxtField = new javax.swing.JTextField();
         registerBtn = new javax.swing.JButton();
-        passwordTxtField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        reenterTxtField = new javax.swing.JTextField();
         showCaptchTxtField = new javax.swing.JTextField();
         captchaTxtField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        countryComboBox = new javax.swing.JComboBox();
+        stateComboBox = new javax.swing.JComboBox();
         backBtn = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        contactTxtField = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        emailTxtField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
+        repassField = new javax.swing.JPasswordField();
+        jLabel10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -93,10 +111,13 @@ public class SignUpJPanel extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
         jLabel1.setText("Register Yourself!");
 
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         jLabel2.setText("Full Name:");
 
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         jLabel3.setText("Username:");
 
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         jLabel4.setText("Password:");
 
         nameTxtField.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +133,7 @@ public class SignUpJPanel extends javax.swing.JPanel {
         });
 
         registerBtn.setBackground(new java.awt.Color(204, 204, 255));
+        registerBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         registerBtn.setText("Register Me!");
         registerBtn.setBorder(new javax.swing.border.MatteBorder(null));
         registerBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +142,7 @@ public class SignUpJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         jLabel5.setText("Re-enter Password:");
 
         showCaptchTxtField.setEditable(false);
@@ -136,14 +159,16 @@ public class SignUpJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("(Case Sensitive)");
 
-        jLabel6.setText("Country:");
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        jLabel6.setText("State:");
 
-        countryComboBox.addActionListener(new java.awt.event.ActionListener() {
+        stateComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                countryComboBoxActionPerformed(evt);
+                stateComboBoxActionPerformed(evt);
             }
         });
 
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         backBtn.setText("<<Back");
         backBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -152,86 +177,118 @@ public class SignUpJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        jLabel8.setText("Phone Number:");
+
+        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        jLabel9.setText("Email Address:");
+
+        emailTxtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailTxtFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/retry.png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+        jLabel10.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel10KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(122, 122, 122)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(80, 80, 80)
-                        .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(showCaptchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
-                                .addGap(2, 2, 2)))
-                        .addGap(161, 161, 161)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(countryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(usernameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwordTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(reenterTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(captchaTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(110, 110, 110))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(185, 185, 185))))
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel9)
+                                        .addComponent(showCaptchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel7))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(118, 118, 118)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(captchaTxtField)
+                                                .addComponent(stateComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(usernameTxtField)
+                                                .addComponent(contactTxtField)
+                                                .addComponent(nameTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                                                .addComponent(emailTxtField)
+                                                .addComponent(passwordField)
+                                                .addComponent(repassField)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jLabel10)))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(193, 193, 193)
+                        .addComponent(jLabel1)))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(14, 14, 14)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(countryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addComponent(contactTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emailTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(usernameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(usernameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(stateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(14, 14, 14)
+                    .addComponent(jLabel4)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(reenterTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(captchaTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(showCaptchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addGap(42, 42, 42)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(41, 41, 41))
+                    .addComponent(repassField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(showCaptchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(captchaTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addGap(19, 19, 19)
+                .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -247,52 +304,115 @@ public class SignUpJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_captchaTxtFieldActionPerformed
 
-    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
-        Network network = (Network) countryComboBox.getSelectedItem();
-
-        String name = nameTxtField.getText();
-        String username = usernameTxtField.getText();
-        String password = passwordTxtField.getText();
-        String reenter = reenterTxtField.getText();
-        String captchaEntered = captchaTxtField.getText();
-
-        if (password.equals(reenter) && captchaEntered.equals(captcha)) {
-            for (Network n : system.getNetworkList()) {
-                if (n.equals(network)) {
-                    Person person = n.getPersonDirectory().createPerson(name);
-                    UserAccount ua = n.getUserAccountDirectory().createUserAccount(username, password, person, new CustomerRole());
+    public boolean checkUsernameUnique(EcoSystem system, String userName) {
+        boolean flag = false;
+        flag = system.getUserAccountDirectory().checkIfUsernameIsUnique(userName);
+        if (flag == false) {
+            A:
+            for (Network network : system.getNetworkList()) {
+                flag = network.getUserAccountDirectory().checkIfUsernameIsUnique(userName);
+                if (flag == true) {
+                    break A;
+                } else {
                     for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-                        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                            if (org instanceof CustomerOrganization) {
-                                org.getPersonDirectory().createPerson(name);
+                        flag = enterprise.getUserAccountDirectory().checkIfUsernameIsUnique(userName);
+                        if (flag == true) {
+                            break A;
+                        } else {
+                            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                                flag = enterprise.getUserAccountDirectory().checkIfUsernameIsUnique(userName);
+                                if (flag == true) {
+                                    break A;
+                                }
                             }
                         }
                     }
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Incorrect captcha or passwords do not match", "Error", JOptionPane.ERROR_MESSAGE);
+            return flag;
         }
+        return flag;
 
-        captcha = generateCaptcha();
-        showCaptchTxtField.setText(captcha);
-        resetFields();
-        dB4OUtil.storeSystem(system);
-        JOptionPane.showMessageDialog(null, "Account successfully created. You can now login!");
+    }
+
+    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
+        Network network = (Network) stateComboBox.getSelectedItem();
+        try {
+            String name = nameTxtField.getText().trim();
+            String username = usernameTxtField.getText().trim();
+            char[] passwordCharArray = passwordField.getPassword();
+            String password = String.valueOf(passwordCharArray);
+            //String password = passwordTxtField.getText();
+            char[] repasswordCharArray = repassField.getPassword();
+            String reenter = String.valueOf(repasswordCharArray);
+            //String reenter = reenterTxtField.getText();
+            String captchaEntered = captchaTxtField.getText().trim();
+            String email = emailTxtField.getText().trim();
+            String contact = contactTxtField.getText().trim();
+
+            if (!name.isEmpty() && !username.isEmpty() && !reenter.isEmpty()
+                    && !password.isEmpty() && !captchaEntered.isEmpty()
+                    && !contact.isEmpty()) {
+                boolean check = checkUsernameUnique(system, username);
+
+                if (check == false) {
+                    if (password.equals(reenter)) {
+                        if (captchaEntered.equals(captcha)) {
+                            for (Network n : system.getNetworkList()) {
+                                if (n.equals(network)) {
+                                    Person person = n.getPersonDirectory().createPerson(name);
+                                    person.setContact(Integer.parseInt(contact));
+                                    person.setEmail(email);
+                                    UserAccount ua = n.getUserAccountDirectory().createUserAccount(username, password, person, new CustomerRole());
+                                    JOptionPane.showMessageDialog(null, "Account successfully created. You can login now!");
+                                    for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+                                        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                                            if (org instanceof CustomerOrganization) {
+                                                org.getPersonDirectory().createPerson(name);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Captcha does not match. Please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } 
+                    else {
+                        JOptionPane.showMessageDialog(null, "Passwords do no match. Please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    captcha = generateCaptcha();
+                    showCaptchTxtField.setText(captcha);
+                    resetFields();
+                    dB4OUtil.storeSystem(system);
+                } else {
+                    JOptionPane.showMessageDialog(null, "This username already exist. Please try another username.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "One or more empty fields. Please enter all the values", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please enter appropriate values", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
 
     }//GEN-LAST:event_registerBtnActionPerformed
 
     private void resetFields() {
         nameTxtField.setText("");
+        contactTxtField.setText("");
         usernameTxtField.setText("");
-        passwordTxtField.setText("");
-        reenterTxtField.setText("");
+        passwordField.setText("");
+        repassField.setText("");
         captchaTxtField.setText("");
     }
 
-    private void countryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countryComboBoxActionPerformed
+    private void stateComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stateComboBoxActionPerformed
 
-    }//GEN-LAST:event_countryComboBoxActionPerformed
+    }//GEN-LAST:event_stateComboBoxActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         userProcessContainer.remove(this);
@@ -300,30 +420,48 @@ public class SignUpJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backBtnActionPerformed
 
+    private void emailTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailTxtFieldActionPerformed
+
+    private void jLabel10KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel10KeyPressed
+        
+    }//GEN-LAST:event_jLabel10KeyPressed
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        captcha = generateCaptcha();
+        showCaptchTxtField.setText(captcha);
+    }//GEN-LAST:event_jLabel10MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
     private javax.swing.JTextField captchaTxtField;
-    private javax.swing.JComboBox countryComboBox;
+    private javax.swing.JTextField contactTxtField;
+    private javax.swing.JTextField emailTxtField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField nameTxtField;
-    private javax.swing.JTextField passwordTxtField;
-    private javax.swing.JTextField reenterTxtField;
+    private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton registerBtn;
+    private javax.swing.JPasswordField repassField;
     private javax.swing.JTextField showCaptchTxtField;
+    private javax.swing.JComboBox stateComboBox;
     private javax.swing.JTextField usernameTxtField;
     // End of variables declaration//GEN-END:variables
 
     private void populateNetworkComboBox() {
-        countryComboBox.removeAllItems();
+        stateComboBox.removeAllItems();
         for (Network network : system.getNetworkList()) {
-            countryComboBox.addItem(network);
+            stateComboBox.addItem(network);
         }
     }
 

@@ -143,7 +143,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_viewBtnActionPerformed
 
     private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
-        ViewProfileJPanel viewProfileCustJPanel = new ViewProfileJPanel(userProcessContainer, account, network);
+        ViewProfileJPanel viewProfileCustJPanel = new ViewProfileJPanel(userProcessContainer, account, network, business);
         userProcessContainer.add("viewProfileCustJPanel", viewProfileCustJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

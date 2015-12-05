@@ -13,6 +13,7 @@ import Business.Sensors.RFID;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.SupplierReceivedWorkRequest;
 import java.awt.CardLayout;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Queue;
 import javax.swing.JOptionPane;
@@ -127,7 +128,7 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
 
     private void submitTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitTxtFieldActionPerformed
         request.setMessage(msgTxtField.getText());
-        Date date = new Date();
+        String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
         request.setResolveDate(date);
         request.setStatus("Completed");
         int qty = request.getQuantity();
@@ -136,9 +137,13 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
         for (OrderItem oi : o.getOrderItemList()) {
             for (InventoryItem ii : account.getInventory().getInventoryList()) {
                 if (ii.getProduct().getName().equals(request.getProduct().getName())) {
-                    for(int i = 0; i < qty; i++)
-                        oi.getRfid().add(ii.getRfid().remove());
-                    ii.setQuantity(oi.getRfid().size());
+                    for(int i = 0; i < qty; i++){
+                        RFID rfid = ii.getRfid().remove();
+                        rfid.setRetailer(request.getSender());
+                        rfid.setSupplierShippingDate(date);
+                        oi.getRfid().add(rfid);                        
+                    }
+                    ii.setQuantity(ii.getRfid().size());
                 }
             }
             for (InventoryItem rii : request.getSender().getInventory().getInventoryList()) {

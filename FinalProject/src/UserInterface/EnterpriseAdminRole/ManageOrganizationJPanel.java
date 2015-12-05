@@ -14,7 +14,9 @@ import Business.Role.FDARole;
 import Business.Role.FarmerRole;
 import Business.Role.RetailerRole;
 import Business.Role.SupplierRole;
+import Business.Utils.MyStringVerifier;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,12 +31,14 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
      */
     private Enterprise enterprise;
     private JPanel userProcessContainer;
+
     public ManageOrganizationJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         populateTable();
         populateCombo();
+
     }
 
     private void populateCombo() {
@@ -43,26 +47,27 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         if (!entType.getValue().equals(Enterprise.EnterpriseType.FDA.getValue())) {
             for (Organization.Type type : Organization.Type.values()) {
                 if (!type.getValue().equals(Organization.Type.Admin.getValue())
-                        && !type.getValue().equals(Organization.Type.FDA.getValue())) {
+                        && !type.getValue().equals(Organization.Type.FDA.getValue())
+                        && !type.getValue().equals(Organization.Type.FDAAdmin.getValue())) {
                     organizationJComboBox.addItem(type);
                 }
-                
+
             }
-            
+
+        } else if (entType.getValue().equals(Enterprise.EnterpriseType.FDA.getValue())) {
+            organizationJComboBox.addItem(Organization.Type.FDA);
+            organizationJComboBox.addItem(Organization.Type.Customer);
         }
-        else if (entType.getValue().equals(Enterprise.EnterpriseType.FDA.getValue())){
-                    organizationJComboBox.addItem(Organization.Type.FDA);
-                    organizationJComboBox.addItem(Organization.Type.Customer);
-                }
     }
 
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) organizationJTable.getModel();
         model.setRowCount(0);
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-            Object[] row = new Object[2];
+            Object[] row = new Object[3];
             row[0] = organization.getOrganizationID();
             row[1] = organization.getName();
+            row[2] = organization.getCreationDate();
             model.addRow(row);
         }
     }
@@ -84,16 +89,19 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         addBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        organizationJTable.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         organizationJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Name"
+                "ID", "Name", "Created On"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -106,22 +114,31 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
             organizationJTable.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("Manage Organization");
 
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel1.setText("Organization Type:");
 
-        addBtn.setText("Add");
+        addBtn.setBackground(new java.awt.Color(51, 51, 51));
+        addBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        addBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addBtn.setText("Add Organization");
         addBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        addBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
             }
         });
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
         backBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backBtnActionPerformed(evt);
@@ -135,62 +152,71 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(215, 215, 215)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel1)
+                        .addGap(86, 86, 86)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(organizationJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(27, 27, 27))
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addComponent(organizationJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(114, 114, 114))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(229, 229, 229))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(organizationJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(56, 56, 56)
                 .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(39, 39, 39)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(63, 63, 63))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         Organization.Type type = (Organization.Type) organizationJComboBox.getSelectedItem();
-        Organization org = enterprise.getOrganizationDirectory().createOrganization(type);
-        if (type == Organization.Type.Supplier) {
-            org.getSupportedRole().add(new SupplierRole());
-        }  else if (type == Organization.Type.Retailer) {
-            org.getSupportedRole().add(new RetailerRole());
-        } else if (type == Organization.Type.Driver) {
-            org.getSupportedRole().add(new DriverRole());
-        } else if (type == Organization.Type.Farmer) {
-            org.getSupportedRole().add(new FarmerRole());
-        } else if (type == Organization.Type.FDA) {
-            org.getSupportedRole().add(new FDARole());
-        } else if (type == Organization.Type.Customer) {
-            org.getSupportedRole().add(new CustomerRole());
-        } 
-        populateTable();
+        int i = 0;
+        for(Organization o : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if(o.getName().equals(type.getValue())){
+                ++i;
+            }
+        }
+        if(i == 0){
+            Organization org = enterprise.getOrganizationDirectory().createOrganization(type);
+            if (type == Organization.Type.Supplier) {
+                org.getSupportedRole().add(new SupplierRole());
+            } else if (type == Organization.Type.Retailer) {
+                org.getSupportedRole().add(new RetailerRole());
+            } else if (type == Organization.Type.Driver) {
+                org.getSupportedRole().add(new DriverRole());
+            } else if (type == Organization.Type.Farmer) {
+                org.getSupportedRole().add(new FarmerRole());
+            } else if (type == Organization.Type.FDA) {
+                org.getSupportedRole().add(new FDARole());
+            } else if (type == Organization.Type.Customer) {
+                org.getSupportedRole().add(new CustomerRole());
+            }
+            populateTable();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "This organization has already been created.");
+        }
+        
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed

@@ -17,6 +17,7 @@ import javax.swing.JPanel;
  * @author user
  */
 public abstract class Role {
+    
     public enum RoleType{
         Admin("Admin"),
         Customer("Customer"),
@@ -24,6 +25,7 @@ public abstract class Role {
         Supplier("Supplier"),
         Farmer("Farmer"),
         FDA("FDA"),
+        FDAAdmin("FDAAdmin"),
         Driver("Driver");
         
         private String value;

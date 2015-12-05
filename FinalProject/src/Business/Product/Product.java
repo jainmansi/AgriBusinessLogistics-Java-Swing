@@ -14,6 +14,8 @@ import Business.Sensors.RFID;
 public class Product {
     private String name;
     private int price;
+    private String perish;
+    private String batchNumber;
     private static int counter = 0;
     
    
@@ -32,6 +34,22 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getPerish() {
+        return perish;
+    }
+
+    public void setPerish(String perish) {
+        this.perish = perish;
+    }
+
+    public String getBatchNumber() {
+        return batchNumber;
+    }
+
+    public void setBatchNumber(String batchNumber) {
+        this.batchNumber = batchNumber;
     }
     
 

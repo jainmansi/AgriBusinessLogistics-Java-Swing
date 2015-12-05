@@ -11,12 +11,14 @@ import Business.Order.Order;
 import Business.Order.OrderItem;
 import Business.Sensors.RFID;
 import Business.UserAccount.UserAccount;
+import Business.Utils.MyStringVerifier;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -33,6 +35,7 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
     private ManageOrderJPanel mojp;
     private UserAccount userAccount;
     private Network network;
+
     public ResolveOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, Network network, WorkRequest workRequest, ManageOrderJPanel mojp) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -40,7 +43,12 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
         this.mojp = mojp;
         this.userAccount = userAccount;
         this.network = network;
-        supplierNameTxtField.setText(workRequest.getSender().getPerson().getName());
+        MyStringVerifier myStringVerifier = new MyStringVerifier();
+        messageTxtField.setInputVerifier(myStringVerifier);
+        nameTxtField.setText(workRequest.getProduct().getName());
+        byTxtField.setText(workRequest.getSender().getPerson().getName());
+        dateTxtField.setText(workRequest.getRequestDate());
+        statusTxtField.setText(workRequest.getStatus());
     }
 
     /**
@@ -53,31 +61,39 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        supplierNameTxtField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         messageTxtField = new javax.swing.JTextField();
         backBtn = new javax.swing.JButton();
         resolveBtn = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        nameTxtField = new javax.swing.JTextField();
+        byTxtField = new javax.swing.JTextField();
+        dateTxtField = new javax.swing.JTextField();
+        statusTxtField = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
         jLabel2.setText("Resolve Order");
 
-        jLabel1.setText("Supplier Name:");
-
-        supplierNameTxtField.setEditable(false);
-
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel3.setText("Message to Supplier:");
 
+        messageTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         messageTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 messageTxtFieldActionPerformed(evt);
             }
         });
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
         backBtn.setBorder(new javax.swing.border.MatteBorder(null));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -86,58 +102,136 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
             }
         });
 
-        resolveBtn.setText("Resolve!");
-        resolveBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        resolveBtn.setBackground(new java.awt.Color(51, 51, 51));
+        resolveBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        resolveBtn.setForeground(new java.awt.Color(255, 255, 255));
+        resolveBtn.setText("Resolve This Order!");
+        resolveBtn.setBorder(new javax.swing.border.MatteBorder(null));
         resolveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resolveBtnActionPerformed(evt);
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Order Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 1, 14), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel4.setText("Product Name:");
+
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel5.setText("Ordered By:");
+
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel6.setText("Request Date:");
+
+        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel7.setText("Status:");
+
+        nameTxtField.setEditable(false);
+        nameTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        byTxtField.setEditable(false);
+        byTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        dateTxtField.setEditable(false);
+        dateTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        dateTxtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateTxtFieldActionPerformed(evt);
+            }
+        });
+
+        statusTxtField.setEditable(false);
+        statusTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        statusTxtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusTxtFieldActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(59, 59, 59)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nameTxtField)
+                    .addComponent(byTxtField)
+                    .addComponent(dateTxtField)
+                    .addComponent(statusTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
+                .addGap(80, 80, 80))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(nameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(byTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(dateTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(statusTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(113, 113, 113))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(messageTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                            .addComponent(supplierNameTxtField))
-                        .addGap(62, 62, 62))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(166, 166, 166)
-                .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
+                .addGap(180, 180, 180)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(messageTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(117, 117, 117))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(175, 175, 175))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(176, 176, 176))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(supplierNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(messageTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -147,52 +241,76 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         userProcessContainer.remove(this);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         mojp.populateOrderTable();
+        mojp.populateOrderHistory();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();        
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void resolveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resolveBtnActionPerformed
-        String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
-        workRequest.setResolveDate(date);
-        workRequest.setStatus("completed");
-        workRequest.setMessage(messageTxtField.getText());
-        workRequest.getOrder().setSeller(userAccount);
-        Order o = workRequest.getOrder();
+        try {
+            String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
+            workRequest.setResolveDate(date);
+            workRequest.setStatus("completed");
+            workRequest.setMessage(messageTxtField.getText());
+            workRequest.getOrder().setSeller(userAccount);
+            statusTxtField.setText("completed");
+            Order o = workRequest.getOrder();
 
-        for (OrderItem oi : o.getOrderItemList()) {
-            for (InventoryItem ii : userAccount.getInventory().getInventoryList()) {
-                if (ii.getName().equals(workRequest.getProduct().getName())) {
-                    for(int i = 0; i < oi.getQuantity(); i++){
-                        RFID rfid = ii.getRfid().remove();
-                        rfid.setSupplier(workRequest.getSender());
-                        rfid.setFarmerShippingDate(date);
-                        oi.getRfid().add(rfid);                        
+            for (OrderItem oi : o.getOrderItemList()) {
+                for (InventoryItem ii : userAccount.getInventory().getInventoryList()) {
+                    if (ii.getName().equals(workRequest.getProduct().getName())) {
+                        for (int i = 0; i < oi.getQuantity(); i++) {
+                            RFID rfid = ii.getRfid().remove();
+                            rfid.setSupplier(workRequest.getSender());
+                            rfid.setFarmerShippingDate(date);
+                            oi.getRfid().add(rfid);
+                        }
+                        ii.setQuantity(ii.getRfid().size());
                     }
-                    ii.setQuantity(ii.getRfid().size());
+                }
+                for (InventoryItem sii : workRequest.getSender().getInventory().getInventoryList()) {
+                    if (sii.getProduct().getName().equals(workRequest.getProduct().getName())) {
+                        Queue<RFID> temp = oi.getRfid();
+                        for (int i = 0; i < oi.getQuantity(); i++) {
+                            sii.getRfid().add(temp.remove());
+                        }
+                        sii.setQuantity(sii.getRfid().size());
+                    }
                 }
             }
-            for (InventoryItem sii : workRequest.getSender().getInventory().getInventoryList()) {
-                if(sii.getProduct().getName().equals(workRequest.getProduct().getName())){
-                Queue<RFID> temp = oi.getRfid();
-                for(int i = 0; i < oi.getQuantity(); i++)
-                    sii.getRfid().add(temp.remove());                
-                sii.setQuantity(sii.getRfid().size());
-                }
-            }
+            network.getMasterOrderCatalog().addOrder(o);
+            System.out.println(o.getBuyer().getPerson().getName());
+            messageTxtField.setText("");
+            resolveBtn.setEnabled(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please enter appropriate message!");
         }
-        network.getMasterOrderCatalog().addOrder(o);
-        System.out.println(o.getBuyer().getPerson().getName());
     }//GEN-LAST:event_resolveBtnActionPerformed
+
+    private void dateTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateTxtFieldActionPerformed
+
+    private void statusTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusTxtFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField byTxtField;
+    private javax.swing.JTextField dateTxtField;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField messageTxtField;
+    private javax.swing.JTextField nameTxtField;
     private javax.swing.JButton resolveBtn;
-    private javax.swing.JTextField supplierNameTxtField;
+    private javax.swing.JTextField statusTxtField;
     // End of variables declaration//GEN-END:variables
 }

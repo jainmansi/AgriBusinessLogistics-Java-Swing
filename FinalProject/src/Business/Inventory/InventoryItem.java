@@ -17,8 +17,8 @@ import java.util.Queue;
 public class InventoryItem {
     private Product product;
     private String name;
-    private int quantity;
-    private int threshold;
+    private int quantity = 0;
+    private int threshold = 0;
     private Queue<RFID> rfid;
     
     public InventoryItem(){

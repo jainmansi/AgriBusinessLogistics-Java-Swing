@@ -8,7 +8,11 @@ package UserInterface.FarmerRole;
 import Business.Inventory.InventoryItem;
 import Business.Product.Product;
 import Business.UserAccount.UserAccount;
+import Business.Utils.MyIntegerVerifier;
+import Business.Utils.MyStringVerifier;
 import java.awt.CardLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -23,11 +27,28 @@ public class AddProductsJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount account;
     private ManageProductsJPanel mpjp;
+
     public AddProductsJPanel(JPanel userProcessContainer, UserAccount account, ManageProductsJPanel mpjp) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.account = account;
         this.mpjp = mpjp;
+        groupButton();
+        MyStringVerifier myStringVerifier = new MyStringVerifier();
+        MyIntegerVerifier myIntegerVerifier = new MyIntegerVerifier();
+        prodNameTxtField.setInputVerifier(myStringVerifier);
+        batchNumTxtField.setInputVerifier(myStringVerifier);
+        priceTxtField.setInputVerifier(myIntegerVerifier);
+    }
+
+    private void groupButton() {
+
+        ButtonGroup bg1 = new ButtonGroup();
+
+        bg1.add(jRadioButton1);
+        bg1.add(jRadioButton2);
+        bg1.add(jRadioButton3);
+
     }
 
     /**
@@ -46,21 +67,39 @@ public class AddProductsJPanel extends javax.swing.JPanel {
         backBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         priceTxtField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        batchNumTxtField = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 26)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 51));
         jLabel2.setText("Add Products");
 
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel1.setText("Product Name:");
 
-        addBtn.setText("Add");
-        addBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        prodNameTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        addBtn.setBackground(new java.awt.Color(51, 51, 51));
+        addBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        addBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addBtn.setText("Add to Catalog");
+        addBtn.setBorder(new javax.swing.border.MatteBorder(null));
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
             }
         });
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
         backBtn.setBorder(new javax.swing.border.MatteBorder(null));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -69,13 +108,40 @@ public class AddProductsJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel3.setText("Price:");
 
+        priceTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         priceTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 priceTxtFieldActionPerformed(evt);
             }
         });
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel4.setText("Batch Number:");
+
+        batchNumTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        jRadioButton1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jRadioButton1.setText("Perishable");
+
+        jRadioButton2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jRadioButton2.setText("Semi-Perishable");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jRadioButton3.setText("Non-Perishable");
+
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel5.setText("Perishability Level:");
+
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel6.setText("$");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -84,43 +150,63 @@ public class AddProductsJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1))
-                                .addGap(48, 48, 48)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(prodNameTxtField)
-                                    .addComponent(priceTxtField)))))
+                        .addGap(248, 248, 248)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(187, 187, 187)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(113, 113, 113))
+                        .addGap(187, 187, 187)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(71, 71, 71)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(priceTxtField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                            .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(prodNameTxtField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(batchNumTxtField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)))
+                .addGap(84, 84, 84))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(35, 35, 35)
                 .addComponent(jLabel2)
+                .addGap(66, 66, 66)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(prodNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
+                            .addComponent(priceTxtField))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(batchNumTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addComponent(jRadioButton1))
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(prodNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jRadioButton2)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(priceTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jRadioButton3)
                 .addGap(30, 30, 30)
+                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(45, 45, 45))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,28 +218,79 @@ public class AddProductsJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        String prodName = prodNameTxtField.getText();
-        int price = (Integer.parseInt(priceTxtField.getText()));
-        Product p = account.getProductCatalog().addProduct();
-        p.setName(prodName);
-        p.setPrice(price);
-        
-        InventoryItem ii = account.getInventory().addInventory();
-        ii.setProduct(p);
-        ii.setName(prodName);
+        String perish = "";
+
+        if (jRadioButton1.isSelected()) {
+            perish = "high";
+        } else if (jRadioButton2.isSelected()) {
+            perish = "medium";
+        } else if (jRadioButton3.isSelected()) {
+            perish = "low";
+        }
+        try {
+            String prodName = prodNameTxtField.getText().trim();
+            String price = priceTxtField.getText().trim();
+            String batchNumber = batchNumTxtField.getText().trim();
+            int i =0;
+            if (!prodName.isEmpty() && !batchNumber.isEmpty() && !price.isEmpty()) {
+                for (Product prod : account.getProductCatalog().getProductList()) {
+                    if (prodName.toLowerCase().equals(prod.getName().toLowerCase())) {
+                        ++i;
+                    } 
+                }if(i==0) {
+                        Product p = account.getProductCatalog().addProduct();
+                        p.setName(prodName);
+                        p.setPrice(Integer.parseInt(price));
+                        p.setPerish(perish);
+                        p.setBatchNumber(batchNumber);
+
+                        InventoryItem ii = account.getInventory().addInventory();
+                        ii.setProduct(p);
+                        ii.setName(prodName);
+                        JOptionPane.showMessageDialog(null, "Product created successfully.");
+                        resetFields();
+                    }
+                else{
+                    JOptionPane.showMessageDialog(null, "This product already exist in catalog");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please enter appropriate values!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please enter appropriate values!");
+        }
     }//GEN-LAST:event_addBtnActionPerformed
 
+    public void resetFields(){
+        prodNameTxtField.setText("");
+        priceTxtField.setText("");
+        batchNumTxtField.setText("");
+        jRadioButton1.setSelected(false);
+        jRadioButton2.setSelected(false);
+        jRadioButton3.setSelected(false);
+    }
     private void priceTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceTxtFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_priceTxtFieldActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JButton backBtn;
+    private javax.swing.JTextField batchNumTxtField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JTextField priceTxtField;
     private javax.swing.JTextField prodNameTxtField;
     // End of variables declaration//GEN-END:variables

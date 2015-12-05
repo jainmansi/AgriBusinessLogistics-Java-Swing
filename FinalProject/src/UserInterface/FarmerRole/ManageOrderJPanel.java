@@ -12,6 +12,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +29,7 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Enterprise enterprise;
     private Network network;
+
     public ManageOrderJPanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -35,21 +37,43 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.network = network;
         populateOrderTable();
+        
     }
 
     public void populateOrderTable() {
         DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
 
         model.setRowCount(0);
-        
-                for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()) {
-                    Object[] row = new Object[4];
-                    row[0] = request;
-                    row[1] = request.getSender().getPerson().getName();
-                    row[2] = request.getReceiver() == null ? null : request.getReceiver().getPerson().getName();
-                    row[3] = request.getStatus();
 
-                    model.addRow(row);
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()) {
+            if (request.getStatus().equals("pending")) {
+                Object[] row = new Object[4];
+                row[0] = request;
+                row[1] = request.getSender().getPerson().getName();
+                row[2] = request.getRequestDate();
+                row[3] = request.getStatus();
+
+                model.addRow(row);                
+            }
+        }
+        populateOrderHistory();
+    }
+    
+    public void populateOrderHistory(){
+        DefaultTableModel dtm = (DefaultTableModel) orderHistoryTable.getModel();
+
+        dtm.setRowCount(0);
+
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()) {
+            if (request.getStatus().equals("completed")) {
+                Object[] row = new Object[4];
+                row[0] = request;
+                row[1] = request.getSender().getPerson().getName();
+                row[2] = request.getRequestDate();
+                row[3] = request.getResolveDate();
+                System.out.println(request.getStatus());
+                dtm.addRow(row);
+            }
         }
     }
 
@@ -68,15 +92,20 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
         newOrderBtn = new javax.swing.JButton();
         resolveBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        orderHistoryTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        orderTable.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         orderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Product Name", "Supplier Name", "Request Date", "Resolve Date"
+                "Product Name", "Ordered By", "Request Date", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -95,33 +124,75 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
             orderTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setText("Manage Orders");
+        jLabel2.setText("Manage Your Orders");
 
+        newOrderBtn.setBackground(new java.awt.Color(51, 51, 51));
+        newOrderBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        newOrderBtn.setForeground(new java.awt.Color(255, 255, 255));
         newOrderBtn.setText("New Order >>");
-        newOrderBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        newOrderBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        newOrderBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         newOrderBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newOrderBtnActionPerformed(evt);
             }
         });
 
-        resolveBtn.setText("Resolve");
-        resolveBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        resolveBtn.setBackground(new java.awt.Color(51, 51, 51));
+        resolveBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        resolveBtn.setForeground(new java.awt.Color(255, 255, 255));
+        resolveBtn.setText("Resolve >>");
+        resolveBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        resolveBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         resolveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resolveBtnActionPerformed(evt);
             }
         });
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
         backBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backBtnActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel1.setText("Your Pending Orders:");
+
+        orderHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Product Name", "Supplied To", "Request Date", "Resolve Date"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(orderHistoryTable);
+        if (orderHistoryTable.getColumnModel().getColumnCount() > 0) {
+            orderHistoryTable.getColumnModel().getColumn(0).setResizable(false);
+            orderHistoryTable.getColumnModel().getColumn(1).setResizable(false);
+            orderHistoryTable.getColumnModel().getColumn(2).setResizable(false);
+            orderHistoryTable.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel3.setText("Your Order History:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -129,38 +200,46 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(resolveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(220, 220, 220)
-                            .addComponent(newOrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(79, 79, 79)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(231, 231, 231)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel1)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(2, 2, 2)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(384, 384, 384)
+                                    .addComponent(newOrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane2)))))
+                .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+                .addContainerGap()
                 .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(newOrderBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(resolveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newOrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(22, 22, 22))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,15 +258,16 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
 
     private void resolveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resolveBtnActionPerformed
         int selectedRow = orderTable.getSelectedRow();
-        
-        if (selectedRow < 0){
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Kindly select a row first");
             return;
         }
-        
-        WorkRequest request = (WorkRequest)orderTable.getValueAt(selectedRow, 0);
-     
+
+        WorkRequest request = (WorkRequest) orderTable.getValueAt(selectedRow, 0);
+
         request.setStatus("Processing");
-        
+
         ResolveOrderJPanel resolveOrderJPanel = new ResolveOrderJPanel(userProcessContainer, userAccount, network, request, this);
         userProcessContainer.add("processWorkRequestJPanel", resolveOrderJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -197,9 +277,13 @@ public class ManageOrderJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton newOrderBtn;
+    private javax.swing.JTable orderHistoryTable;
     private javax.swing.JTable orderTable;
     private javax.swing.JButton resolveBtn;
     // End of variables declaration//GEN-END:variables

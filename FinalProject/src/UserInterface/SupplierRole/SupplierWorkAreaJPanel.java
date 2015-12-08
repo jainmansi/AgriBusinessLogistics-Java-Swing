@@ -47,92 +47,119 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
         viewReportBtn = new javax.swing.JButton();
         manageCatalogBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        pendingOrdersBtn.setText("View Pending Orders");
-        pendingOrdersBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pendingOrdersBtn.setBackground(new java.awt.Color(51, 51, 51));
+        pendingOrdersBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        pendingOrdersBtn.setForeground(new java.awt.Color(255, 255, 255));
+        pendingOrdersBtn.setText("View Pending Orders >>");
+        pendingOrdersBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        pendingOrdersBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pendingOrdersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pendingOrdersBtnActionPerformed(evt);
             }
         });
 
-        manageInventoryBtn.setText("Manage Warehouse");
-        manageInventoryBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageInventoryBtn.setBackground(new java.awt.Color(51, 51, 51));
+        manageInventoryBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        manageInventoryBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageInventoryBtn.setText("Manage Warehouse >>");
+        manageInventoryBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        manageInventoryBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         manageInventoryBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageInventoryBtnActionPerformed(evt);
             }
         });
 
-        placedOrdersBtn.setText("View Placed Orders");
-        placedOrdersBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        placedOrdersBtn.setBackground(new java.awt.Color(51, 51, 51));
+        placedOrdersBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        placedOrdersBtn.setForeground(new java.awt.Color(255, 255, 255));
+        placedOrdersBtn.setText("View Placed Orders >>");
+        placedOrdersBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        placedOrdersBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         placedOrdersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 placedOrdersBtnActionPerformed(evt);
             }
         });
 
-        viewReportBtn.setText("View Report");
-        viewReportBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        viewReportBtn.setBackground(new java.awt.Color(51, 51, 51));
+        viewReportBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        viewReportBtn.setForeground(new java.awt.Color(255, 255, 255));
+        viewReportBtn.setText("View Report >>");
+        viewReportBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        viewReportBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         viewReportBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewReportBtnActionPerformed(evt);
             }
         });
 
-        manageCatalogBtn.setText("Manage Product Catalog");
-        manageCatalogBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageCatalogBtn.setBackground(new java.awt.Color(51, 51, 51));
+        manageCatalogBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        manageCatalogBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageCatalogBtn.setText("Manage Product Catalog >>");
+        manageCatalogBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        manageCatalogBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         manageCatalogBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageCatalogBtnActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 3, 26)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 51, 0));
         jLabel1.setText("Supplier Work Area");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/SupplierRole/supplier.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(68, 68, 68)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(manageInventoryBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pendingOrdersBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                        .addGap(123, 123, 123)
+                        .addComponent(jLabel2)
+                        .addGap(56, 56, 56)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(manageCatalogBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(placedOrdersBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(manageInventoryBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(placedOrdersBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pendingOrdersBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(viewReportBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel1)))
-                .addContainerGap())
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel1)
+                        .addGap(117, 117, 117)
+                        .addComponent(manageCatalogBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(52, 52, 52))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel1)
-                .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(manageInventoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(manageCatalogBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pendingOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(placedOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(manageCatalogBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(manageInventoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(placedOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(pendingOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(viewReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel2)))
+                .addGap(93, 93, 93))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -174,6 +201,7 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton manageCatalogBtn;
     private javax.swing.JButton manageInventoryBtn;
     private javax.swing.JButton pendingOrdersBtn;

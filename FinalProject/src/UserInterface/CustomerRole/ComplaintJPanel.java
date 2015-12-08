@@ -43,23 +43,44 @@ public class ComplaintJPanel extends javax.swing.JPanel {
         newComplaintBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 3, 26)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
         jLabel1.setText("Manage Complaints Here");
 
+        statusBtn.setBackground(new java.awt.Color(51, 51, 51));
+        statusBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        statusBtn.setForeground(new java.awt.Color(255, 255, 255));
         statusBtn.setText("Check Status");
+        statusBtn.setBorder(new javax.swing.border.MatteBorder(null));
         statusBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statusBtnActionPerformed(evt);
             }
         });
 
+        newComplaintBtn.setBackground(new java.awt.Color(51, 51, 51));
+        newComplaintBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        newComplaintBtn.setForeground(new java.awt.Color(255, 255, 255));
         newComplaintBtn.setText("Lodge New Complaint");
+        newComplaintBtn.setBorder(new javax.swing.border.MatteBorder(null));
         newComplaintBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newComplaintBtnActionPerformed(evt);
             }
         });
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
+        backBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -68,30 +89,30 @@ public class ComplaintJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
+                        .addGap(228, 228, 228)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(statusBtn)
-                        .addGap(135, 135, 135)
-                        .addComponent(newComplaintBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(backBtn)))
-                .addContainerGap())
+                        .addGap(149, 149, 149)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(statusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(112, 112, 112)
+                                .addComponent(newComplaintBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(139, 139, 139))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(40, 40, 40)
                 .addComponent(jLabel1)
-                .addGap(104, 104, 104)
+                .addGap(175, 175, 175)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(statusBtn)
-                    .addComponent(newComplaintBtn))
-                .addGap(80, 80, 80)
-                .addComponent(backBtn)
-                .addContainerGap())
+                    .addComponent(statusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newComplaintBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(69, 69, 69)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(133, 133, 133))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -108,6 +129,12 @@ public class ComplaintJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_newComplaintBtnActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

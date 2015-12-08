@@ -38,5 +38,11 @@ public class SupplierReceivedWorkRequest extends WorkRequest{
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }  
+    }
+
+    @Override
+    public String toString() {
+        return productName;
+    }
+    
 }

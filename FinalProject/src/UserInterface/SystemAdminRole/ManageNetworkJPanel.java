@@ -7,6 +7,7 @@ package UserInterface.SystemAdminRole;
 
 import Business.EcoSystem;
 import Business.Network.Network;
+import Business.Utils.MyStringVerifier;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
@@ -31,6 +32,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.business = business;
+        MyStringVerifier myStringVerifier = new MyStringVerifier();
+        networkNameTxtField.setInputVerifier(myStringVerifier);
         populateNetworkJTable();
     }
 
@@ -98,7 +101,9 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 51, 0));
         jLabel2.setText("Manage Network");
 
+        addBtn.setBackground(new java.awt.Color(51, 51, 51));
         addBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        addBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBtn.setText("Add");
         addBtn.setBorder(new javax.swing.border.MatteBorder(null));
         addBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +112,9 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
             }
         });
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
         backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
         backBtn.setBorder(new javax.swing.border.MatteBorder(null));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +144,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(networkNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
@@ -153,8 +160,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                     .addComponent(networkNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -165,14 +172,20 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         try {
             String name = networkNameTxtField.getText().trim();
-            Network network = business.createAndAddNetwork();
             if (!name.isEmpty()) {
+                for (Network n : business.getNetworkList()) {
+                    if (n.getName().toLowerCase().equals(name.toLowerCase())) {
+                        JOptionPane.showMessageDialog(null, "Network with same name already exist.");
+                        return;
+                    }
+                }
                 String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
+                Network network = business.createAndAddNetwork();
                 network.setName(name);
                 network.setDate(date);
+                networkNameTxtField.setText("");
                 populateNetworkJTable();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Please enter appropriate value.");
             }
         } catch (Exception e) {

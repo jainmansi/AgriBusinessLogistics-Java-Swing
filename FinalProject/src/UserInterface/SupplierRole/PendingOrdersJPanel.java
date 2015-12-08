@@ -11,6 +11,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.SupplierReceivedWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,6 +36,7 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.network = network;
         populatePendingOrdersJTable();
+        populateOrderHistoryJTable();
     }
 
     public void populatePendingOrdersJTable() {
@@ -45,13 +47,38 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
         for (WorkRequest request : account.getWorkQueue().getWorkRequestList()) {
             if (request instanceof SupplierReceivedWorkRequest) {
                 if (request.getReceiver().equals(account)) {
-                    Object[] row = new Object[4];
-                    row[0] = request;
-                    row[1] = "abc";
-                    row[2] = "xyz";
-                    row[3] = request.getStatus();
+                    if (request.getStatus().equals("pending")) {
+                        Object[] row = new Object[4];
+                        row[0] = request;
+                        row[1] = request.getSender();
+                        row[2] = request.getRequestDate();
+                        row[3] = request.getStatus();
 
-                    model.addRow(row);
+                        model.addRow(row);
+                    }
+                }
+            }
+        }
+    }
+
+    public void populateOrderHistoryJTable() {
+        DefaultTableModel model = (DefaultTableModel) orderHistoryTable.getModel();
+
+        model.setRowCount(0);
+
+        for (WorkRequest request : account.getWorkQueue().getWorkRequestList()) {
+            if (request instanceof SupplierReceivedWorkRequest) {
+                if (request.getReceiver().equals(account)) {
+                    if (request.getStatus().equals("Completed")) {
+                        Object[] row = new Object[5];
+                        row[0] = request;
+                        row[1] = request.getSender();
+                        row[2] = request.getRequestDate();
+                        row[3] = request.getResolveDate();
+                        row[4] = request.getStatus();
+
+                        model.addRow(row);
+                    }
                 }
             }
         }
@@ -71,14 +98,20 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
         backBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         resolveBtn = new javax.swing.JButton();
-        orderHistory = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        orderHistoryTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        pendingOrdersJTable.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         pendingOrdersJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Message", "Sender", "Receiver", "Status"
+                "Product Name", "Ordered By", "Request Date", "Status"
             }
         ) {
             Class[] types = new Class [] {
@@ -98,6 +131,9 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(pendingOrdersJTable);
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
         backBtn.setBorder(new javax.swing.border.MatteBorder(null));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -106,60 +142,84 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
-        jLabel2.setText("Pending Orders");
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 26)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("Your Orders");
 
+        resolveBtn.setBackground(new java.awt.Color(51, 51, 51));
+        resolveBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        resolveBtn.setForeground(new java.awt.Color(255, 255, 255));
         resolveBtn.setText("Resolve >>");
-        resolveBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        resolveBtn.setBorder(new javax.swing.border.MatteBorder(null));
         resolveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resolveBtnActionPerformed(evt);
             }
         });
 
-        orderHistory.setText("Order History >>");
-        orderHistory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        orderHistory.setEnabled(false);
-        orderHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderHistoryActionPerformed(evt);
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel1.setText("Your Pending Orders:");
+
+        orderHistoryTable.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        orderHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Product Name", "Supplied To", "Request Date", "Resolved Date", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jScrollPane2.setViewportView(orderHistoryTable);
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel3.setText("Your Order History:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(resolveBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(orderHistory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84))
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(277, 277, 277))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(121, 121, 121)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(resolveBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2)))
+                .addGap(58, 58, 58))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(orderHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(resolveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -174,6 +234,7 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
         int selectedRow = pendingOrdersJTable.getSelectedRow();
 
         if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null,"Kindly select a row first.");
             return;
         }
 
@@ -187,16 +248,15 @@ public class PendingOrdersJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_resolveBtnActionPerformed
 
-    private void orderHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderHistoryActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_orderHistoryActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton orderHistory;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable orderHistoryTable;
     private javax.swing.JTable pendingOrdersJTable;
     private javax.swing.JButton resolveBtn;
     // End of variables declaration//GEN-END:variables

@@ -11,6 +11,7 @@ import Business.Order.Order;
 import Business.Order.OrderItem;
 import Business.Sensors.RFID;
 import Business.UserAccount.UserAccount;
+import Business.Utils.MyStringVerifier;
 import Business.WorkQueue.SupplierReceivedWorkRequest;
 import java.awt.CardLayout;
 import java.text.SimpleDateFormat;
@@ -41,6 +42,17 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
         this.network = network;
         this.request = request;
         this.pojp = pojp;
+        populateTextFields();
+        MyStringVerifier myStringVerifier = new MyStringVerifier();
+        msgTxtField.setInputVerifier(myStringVerifier);
+    }
+
+    void populateTextFields() {
+        productTxtField.setText(request.getProduct().getName());
+        byTxtField.setText(request.getSender().getPerson().getName());
+        dateTxtField.setText(request.getRequestDate());
+        qtyTxtField.setText(String.valueOf(request.getQuantity()));
+        statusTxtField.setText(request.getStatus());
     }
 
     /**
@@ -57,21 +69,43 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
         msgTxtField = new javax.swing.JTextField();
         submitTxtField = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        productTxtField = new javax.swing.JTextField();
+        qtyTxtField = new javax.swing.JTextField();
+        byTxtField = new javax.swing.JTextField();
+        dateTxtField = new javax.swing.JTextField();
+        statusTxtField = new javax.swing.JTextField();
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("Resolve Order");
 
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel1.setText("Message to Retailer:");
 
-        submitTxtField.setText("Submit");
-        submitTxtField.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        msgTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        submitTxtField.setBackground(new java.awt.Color(51, 51, 51));
+        submitTxtField.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        submitTxtField.setForeground(new java.awt.Color(255, 255, 255));
+        submitTxtField.setText("Resolve This Order!");
+        submitTxtField.setBorder(new javax.swing.border.MatteBorder(null));
         submitTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitTxtFieldActionPerformed(evt);
             }
         });
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
         backBtn.setBorder(new javax.swing.border.MatteBorder(null));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +114,96 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Order Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trebuchet MS", 1, 14), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel3.setText("Product Ordered:");
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel4.setText("Quantity Ordered:");
+
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel5.setText("Ordered By:");
+
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel6.setText("Ordered On:");
+
+        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel7.setText("Status:");
+
+        productTxtField.setEditable(false);
+        productTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        qtyTxtField.setEditable(false);
+        qtyTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        qtyTxtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                qtyTxtFieldActionPerformed(evt);
+            }
+        });
+
+        byTxtField.setEditable(false);
+        byTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        dateTxtField.setEditable(false);
+        dateTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        dateTxtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateTxtFieldActionPerformed(evt);
+            }
+        });
+
+        statusTxtField.setEditable(false);
+        statusTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addGap(64, 64, 64)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(productTxtField)
+                    .addComponent(qtyTxtField)
+                    .addComponent(byTxtField)
+                    .addComponent(dateTxtField)
+                    .addComponent(statusTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                .addGap(64, 64, 64))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(productTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(qtyTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(byTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(dateTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(statusTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,35 +211,40 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jLabel1)
-                        .addGap(37, 37, 37)
-                        .addComponent(msgTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(203, 203, 203)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(33, 33, 33)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(submitTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(msgTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(27, 27, 27))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(submitTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(86, 86, 86))
+                        .addGap(214, 214, 214)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(92, 92, 92))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(236, 236, 236))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(jLabel2)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(msgTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(submitTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                    .addComponent(msgTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addComponent(submitTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -127,38 +256,56 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void submitTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitTxtFieldActionPerformed
-        request.setMessage(msgTxtField.getText());
-        String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
-        request.setResolveDate(date);
-        request.setStatus("Completed");
-        int qty = request.getQuantity();
-        Order o = request.getOrder();
-        //Queue<RFID> temp = null;
-        for (OrderItem oi : o.getOrderItemList()) {
-            for (InventoryItem ii : account.getInventory().getInventoryList()) {
-                if (ii.getProduct().getName().equals(request.getProduct().getName())) {
-                    for(int i = 0; i < qty; i++){
-                        RFID rfid = ii.getRfid().remove();
-                        rfid.setRetailer(request.getSender());
-                        rfid.setSupplierShippingDate(date);
-                        oi.getRfid().add(rfid);                        
+        try {
+            if (!msgTxtField.getText().isEmpty()) {
+                request.setMessage(msgTxtField.getText());
+                String date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date());
+                request.setResolveDate(date);
+                request.setStatus("Completed");
+                int qty = request.getQuantity();
+                Order o = request.getOrder();
+                //Queue<RFID> temp = null;
+                for (OrderItem oi : o.getOrderItemList()) {
+                    for (InventoryItem ii : account.getInventory().getInventoryList()) {
+                        if (ii.getProduct().getName().equals(request.getProduct().getName())) {
+                            for (int i = 0; i < qty; i++) {
+                                RFID rfid = ii.getRfid().remove();
+                                rfid.setRetailer(request.getSender());
+                                rfid.setSupplierShippingDate(date);
+                                oi.getRfid().add(rfid);
+                            }
+                            ii.setQuantity(ii.getRfid().size());
+                        }
                     }
-                    ii.setQuantity(ii.getRfid().size());
+                    for (InventoryItem rii : request.getSender().getInventory().getInventoryList()) {
+                        if (rii.getProduct().getName().equals(request.getProduct().getName())) {
+                            Queue<RFID> temp = oi.getRfid();
+                            for (int i = 0; i < qty; i++) {
+                                rii.getRfid().add(temp.remove());
+                            }
+                            rii.setQuantity(rii.getRfid().size());
+                        }
+                    }
                 }
+                resetFields();
+                statusTxtField.setText("completed");
+                network.getMasterOrderCatalog().addOrder(o);
+                JOptionPane.showMessageDialog(null, "Order resolved successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Please enter appropriate values");
             }
-            for (InventoryItem rii : request.getSender().getInventory().getInventoryList()) {
-                if(rii.getProduct().getName().equals(request.getProduct().getName())){
-                    Queue<RFID> temp = oi.getRfid();
-                    for(int i = 0; i < qty; i++)
-                        rii.getRfid().add(temp.remove());
-                    rii.setQuantity(rii.getRfid().size());
-                }
-            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please enter appropriate values");
         }
-        resetFields();
-        network.getMasterOrderCatalog().addOrder(o);
-        JOptionPane.showMessageDialog(null, "Order resolved successfully!");
     }//GEN-LAST:event_submitTxtFieldActionPerformed
+
+    private void qtyTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_qtyTxtFieldActionPerformed
+
+    private void dateTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateTxtFieldActionPerformed
 
     private void resetFields() {
         msgTxtField.setText("");
@@ -166,9 +313,20 @@ public class ResolveOrderJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JTextField byTxtField;
+    private javax.swing.JTextField dateTxtField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField msgTxtField;
+    private javax.swing.JTextField productTxtField;
+    private javax.swing.JTextField qtyTxtField;
+    private javax.swing.JTextField statusTxtField;
     private javax.swing.JButton submitTxtField;
     // End of variables declaration//GEN-END:variables
 }

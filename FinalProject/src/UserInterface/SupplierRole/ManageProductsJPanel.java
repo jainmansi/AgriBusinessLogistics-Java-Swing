@@ -39,7 +39,7 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
             for (Product p : account.getProductCatalog().getProductList()) {
                 Object row[] = new Object[3];
                 row[0] = p;
-                row[1] = "1";
+                row[1] = p.getBatchNumber();
                 row[2] = p.getPrice();
                 dtm.addRow(row);
         }
@@ -69,7 +69,7 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Product Name", "Product ID", "Product Price"
+                "Product Name", "Batch Number", "Product Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -82,6 +82,9 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(productJTable);
 
+        deleteProductBtn.setBackground(new java.awt.Color(51, 51, 51));
+        deleteProductBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        deleteProductBtn.setForeground(new java.awt.Color(255, 255, 255));
         deleteProductBtn.setText("Delete Product");
         deleteProductBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         deleteProductBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +93,9 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
             }
         });
 
+        addBtn.setBackground(new java.awt.Color(51, 51, 51));
+        addBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        addBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBtn.setText("Add Product >>");
         addBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         addBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +104,9 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
             }
         });
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
         backBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -113,35 +122,35 @@ public class ManageProductsJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(271, 271, 271)
+                        .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(130, 130, 130)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(deleteProductBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(189, 189, 189)
-                                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(jLabel2)))
-                .addGap(28, 28, 28))
+                                .addGap(2, 2, 2)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(deleteProductBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(226, 226, 226)
+                                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(119, 119, 119))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteProductBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(81, 81, 81)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(77, 77, 77))
         );
     }// </editor-fold>//GEN-END:initComponents
 

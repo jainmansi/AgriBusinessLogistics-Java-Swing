@@ -32,6 +32,7 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         populateOrdersTable();
+        populateOrderHistoryTable();
     }
 
     public void populateOrdersTable() {
@@ -39,12 +40,33 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
         for (WorkRequest request : account.getWorkQueue().getWorkRequestList()) {
             if (request instanceof SupplierSentWorkRequest) {
-                Object row[] = new Object[4];
-                row[0] = request.getMessage();
-                row[1] = request.getRequestDate();
-                row[2] = request.getReceiver();
-                row[3] = request.getStatus();
-                dtm.addRow(row);
+                if (!request.getStatus().equals("completed")) {
+                    Object row[] = new Object[4];
+                    row[0] = request.getProduct().getName();
+                    row[1] = request.getRequestDate();
+                    row[2] = request.getReceiver();
+                    row[3] = request.getStatus();
+                    dtm.addRow(row);
+                }
+            }
+        }
+    }
+    
+    public void populateOrderHistoryTable(){
+        DefaultTableModel dtm = (DefaultTableModel) orderHistoryTable.getModel();
+        dtm.setRowCount(0);
+        for (WorkRequest request : account.getWorkQueue().getWorkRequestList()) {
+            if (request instanceof SupplierSentWorkRequest) {
+                if (request.getStatus().equals("completed")) {
+                    Object row[] = new Object[4];
+                    row[0] = request.getProduct().getName();
+                    row[1] = request.getRequestDate();
+                    row[2] = request.getReceiver();
+                    row[3] = request.getStatus();
+                    row[4] = request.getResolveDate();
+                    row[5] = request.getMessage();
+                    dtm.addRow(row);
+                }
             }
         }
     }
@@ -62,17 +84,24 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         orderTable = new javax.swing.JTable();
         backBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        orderHistoryTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 26)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("Your Orders");
 
+        orderTable.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         orderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Message", "Quantity", "Receiver", "Status"
+                "Product Name", "Request Date", "Receiver", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -85,6 +114,9 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(orderTable);
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
+        backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
         backBtn.setBorder(new javax.swing.border.MatteBorder(null));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -93,33 +125,67 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
+        orderHistoryTable.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        orderHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Product Name", "Request Date", "Receiver", "Status", "Shipped On", "Message"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(orderHistoryTable);
+
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel1.setText("Orders Under Process:");
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        jLabel3.setText("Processed Orders:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(153, 153, 153)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(248, 248, 248))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1))
+                            .addComponent(jLabel3))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,8 +198,12 @@ public class ViewOrdersJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable orderHistoryTable;
     private javax.swing.JTable orderTable;
     // End of variables declaration//GEN-END:variables
 }

@@ -43,76 +43,98 @@ public class RetailerWorkAreaJPanel extends javax.swing.JPanel {
         manageWarehouseBtn = new javax.swing.JButton();
         manageOrdersBtn = new javax.swing.JButton();
         manageProdCatBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 125, 139));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 26)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 0));
         jLabel2.setText("Retailer Work Area");
 
-        viewReportsBtn.setText("View Reports");
-        viewReportsBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        viewReportsBtn.setBackground(new java.awt.Color(51, 51, 51));
+        viewReportsBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        viewReportsBtn.setForeground(new java.awt.Color(255, 255, 255));
+        viewReportsBtn.setText("View Reports >>");
+        viewReportsBtn.setBorder(new javax.swing.border.MatteBorder(null));
         viewReportsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewReportsBtnActionPerformed(evt);
             }
         });
 
-        manageWarehouseBtn.setText("Manage Warehouse");
-        manageWarehouseBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageWarehouseBtn.setBackground(new java.awt.Color(51, 51, 51));
+        manageWarehouseBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        manageWarehouseBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageWarehouseBtn.setText("Manage Warehouse >>");
+        manageWarehouseBtn.setBorder(new javax.swing.border.MatteBorder(null));
         manageWarehouseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageWarehouseBtnActionPerformed(evt);
             }
         });
 
-        manageOrdersBtn.setText("Manage Orders");
-        manageOrdersBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageOrdersBtn.setBackground(new java.awt.Color(51, 51, 51));
+        manageOrdersBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        manageOrdersBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageOrdersBtn.setText("Manage Orders >>");
+        manageOrdersBtn.setBorder(new javax.swing.border.MatteBorder(null));
         manageOrdersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageOrdersBtnActionPerformed(evt);
             }
         });
 
-        manageProdCatBtn.setText("Manage Product Catalog");
-        manageProdCatBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        manageProdCatBtn.setBackground(new java.awt.Color(51, 51, 51));
+        manageProdCatBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 16)); // NOI18N
+        manageProdCatBtn.setForeground(new java.awt.Color(255, 255, 255));
+        manageProdCatBtn.setText("Manage Product Catalog >>");
+        manageProdCatBtn.setBorder(new javax.swing.border.MatteBorder(null));
         manageProdCatBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageProdCatBtnActionPerformed(evt);
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/RetailerRole/tomatoKing.jpg"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(94, 94, 94)
+                .addComponent(jLabel1)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(manageProdCatBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(manageOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(102, 102, 102)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(viewReportsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(manageWarehouseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44))
+                    .addComponent(manageWarehouseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manageProdCatBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manageOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewReportsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(74, 74, 74))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(125, 125, 125))
+                .addComponent(jLabel2)
+                .addGap(257, 257, 257))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(59, 59, 59)
                 .addComponent(jLabel2)
-                .addGap(86, 86, 86)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(manageProdCatBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(manageWarehouseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(manageOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewReportsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(104, 104, 104))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(manageProdCatBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(manageWarehouseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(manageOrdersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(viewReportsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(410, 410, 410))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -146,6 +168,7 @@ public class RetailerWorkAreaJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton manageOrdersBtn;
     private javax.swing.JButton manageProdCatBtn;

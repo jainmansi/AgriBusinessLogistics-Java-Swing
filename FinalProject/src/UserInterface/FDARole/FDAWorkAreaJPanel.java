@@ -48,31 +48,51 @@ public class FDAWorkAreaJPanel extends javax.swing.JPanel {
         pendingComplaintBtn = new javax.swing.JButton();
         historyBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        newComplaintBtn.setBackground(new java.awt.Color(51, 51, 51));
+        newComplaintBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        newComplaintBtn.setForeground(new java.awt.Color(255, 255, 255));
         newComplaintBtn.setText("New Complaint");
+        newComplaintBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        newComplaintBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         newComplaintBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newComplaintBtnActionPerformed(evt);
             }
         });
 
+        pendingComplaintBtn.setBackground(new java.awt.Color(51, 51, 51));
+        pendingComplaintBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        pendingComplaintBtn.setForeground(new java.awt.Color(255, 255, 255));
         pendingComplaintBtn.setText("My Pending Work");
+        pendingComplaintBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        pendingComplaintBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pendingComplaintBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pendingComplaintBtnActionPerformed(evt);
             }
         });
 
+        historyBtn.setBackground(new java.awt.Color(51, 51, 51));
+        historyBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        historyBtn.setForeground(new java.awt.Color(255, 255, 255));
         historyBtn.setText("History");
+        historyBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        historyBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         historyBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 historyBtnActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 20)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 28)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
         jLabel2.setText("My Work Area - FDA");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/FDARole/foodSecurity.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -81,30 +101,34 @@ public class FDAWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(newComplaintBtn)
-                        .addGap(92, 92, 92)
-                        .addComponent(pendingComplaintBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(historyBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(64, 64, 64))
+                        .addGap(196, 196, 196)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(newComplaintBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                            .addComponent(pendingComplaintBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(historyBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jLabel1)
+                .addGap(163, 163, 163))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newComplaintBtn)
-                    .addComponent(pendingComplaintBtn))
-                .addGap(68, 68, 68)
-                .addComponent(historyBtn)
-                .addContainerGap())
+                .addGap(81, 81, 81)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(59, 59, 59)
+                        .addComponent(newComplaintBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69)
+                        .addComponent(pendingComplaintBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(historyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
+                .addGap(221, 221, 221))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,6 +156,7 @@ public class FDAWorkAreaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton historyBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton newComplaintBtn;
     private javax.swing.JButton pendingComplaintBtn;

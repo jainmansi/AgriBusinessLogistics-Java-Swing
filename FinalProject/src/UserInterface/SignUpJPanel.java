@@ -15,6 +15,7 @@ import Business.Person.Person;
 import Business.Role.CustomerRole;
 import Business.UserAccount.UserAccount;
 import Business.Utils.MyEmailVerifier;
+import Business.Utils.MyNoWhiteSpaceVerifier;
 import Business.Utils.MyPhoneNumberVerifier;
 import Business.Utils.MyStringVerifier;
 import java.awt.CardLayout;
@@ -47,10 +48,11 @@ public class SignUpJPanel extends javax.swing.JPanel {
         MyStringVerifier myStringVerifier = new MyStringVerifier();
         MyPhoneNumberVerifier myPhoneNumberVerifier = new MyPhoneNumberVerifier();
         MyEmailVerifier myEmailVerifier = new MyEmailVerifier();
+        MyNoWhiteSpaceVerifier myNoWhiteSpaceVerifier = new MyNoWhiteSpaceVerifier();
         nameTxtField.setInputVerifier(myStringVerifier);
         contactTxtField.setInputVerifier(myPhoneNumberVerifier);
         emailTxtField.setInputVerifier(myEmailVerifier);
-        usernameTxtField.setInputVerifier(myStringVerifier);
+        usernameTxtField.setInputVerifier(myNoWhiteSpaceVerifier);
         passwordField.setInputVerifier(myStringVerifier);
 
     }

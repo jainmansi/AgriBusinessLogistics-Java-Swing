@@ -14,12 +14,12 @@ public class SupplierSentWorkRequest extends WorkRequest{
     private String productName;
     private int orderId;
     
-    public int getQuantity() {
-        return Quantity;
-    }
-
     public int getOrderId() {
         return orderId;
+    }
+
+    public int getQuantity() {
+        return Quantity;
     }
 
     public void setOrderId(int orderId) {
@@ -37,4 +37,5 @@ public class SupplierSentWorkRequest extends WorkRequest{
     public void setProductName(String productName) {
         this.productName = productName;
     }  
+    
 }

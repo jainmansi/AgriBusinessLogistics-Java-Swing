@@ -13,6 +13,7 @@ import Business.Person.Person;
 import Business.Role.EnterpriseAdminRole;
 import Business.Role.FDAAdminRole;
 import Business.UserAccount.UserAccount;
+import Business.Utils.MyNoWhiteSpaceVerifier;
 import Business.Utils.MyStringVerifier;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -41,8 +42,9 @@ public class ManageEntAdminJPanel extends javax.swing.JPanel {
         populateTable();
         populateNetworkComboBox();
         MyStringVerifier myStringVerifier = new MyStringVerifier();
+        MyNoWhiteSpaceVerifier myNoWhiteSpaceVerifier = new MyNoWhiteSpaceVerifier();
         nameTxtField.setInputVerifier(myStringVerifier);
-        usernameTxtField1.setInputVerifier(myStringVerifier);
+        usernameTxtField1.setInputVerifier(myNoWhiteSpaceVerifier);
         passwordTxtField.setInputVerifier(myStringVerifier);
     }
 
@@ -134,6 +136,8 @@ public class ManageEntAdminJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel1.setText("Enterprise:");
 
+        enterpriseComboBox.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel3.setText("Username:");
 
@@ -141,6 +145,7 @@ public class ManageEntAdminJPanel extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 51, 0));
         jLabel2.setText("Manage Enterprise Admin");
 
+        usernameTxtField1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         usernameTxtField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameTxtField1ActionPerformed(evt);
@@ -150,13 +155,16 @@ public class ManageEntAdminJPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel4.setText("Password:");
 
+        passwordTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         passwordTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordTxtFieldActionPerformed(evt);
             }
         });
 
+        backBtn.setBackground(new java.awt.Color(51, 51, 51));
         backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
         backBtn.setBorder(new javax.swing.border.MatteBorder(null));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +176,9 @@ public class ManageEntAdminJPanel extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel5.setText("Name:");
 
+        addBtn.setBackground(new java.awt.Color(51, 51, 51));
         addBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        addBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBtn.setText("Add New Admin");
         addBtn.setBorder(new javax.swing.border.MatteBorder(null));
         addBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -177,11 +187,14 @@ public class ManageEntAdminJPanel extends javax.swing.JPanel {
             }
         });
 
+        nameTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel6.setText("Network:");
 
+        networkComboBox.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         networkComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 networkComboBoxActionPerformed(evt);
@@ -223,7 +236,7 @@ public class ManageEntAdminJPanel extends javax.swing.JPanel {
                                         .addComponent(passwordTxtField)))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addGap(0, 0, 0)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(178, 178, 178)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -261,7 +274,6 @@ public class ManageEntAdminJPanel extends javax.swing.JPanel {
                                     .addComponent(enterpriseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1)))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(usernameTxtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))
@@ -333,7 +345,7 @@ public class ManageEntAdminJPanel extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         Enterprise enterprise = (Enterprise) enterpriseComboBox.getSelectedItem();
         try {
-            String username = nameTxtField.getText();
+            String username = usernameTxtField1.getText();
             String password = String.valueOf(passwordTxtField.getPassword());
             String name = nameTxtField.getText();
             if (!username.isEmpty() && !password.isEmpty() && !name.isEmpty()) {

@@ -24,6 +24,7 @@ public abstract class Organization {
     private int organizationID;
     private static int counter;
     
+    
     public enum Type{
         Admin("Admin Organization"), 
         Customer("Customer Organization"), 
@@ -65,7 +66,7 @@ public abstract class Organization {
     public PersonDirectory getPersonDirectory() {
         return personDirectory;
     }
-    
+
     public String getName() {
         return name;
     }

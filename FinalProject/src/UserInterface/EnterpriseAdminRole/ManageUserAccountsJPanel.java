@@ -16,6 +16,7 @@ import Business.Role.DriverRole;
 import Business.Role.FDARole;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
+import Business.Utils.MyNoWhiteSpaceVerifier;
 import Business.Utils.MyStringVerifier;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -39,10 +40,12 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
         initComponents();
         this.enterprise = enterprise;
         this.userProcessContainer = userProcessContainer;
+        this.system = system;
         populateOrganizationComboBox();
         populateData();
         MyStringVerifier myStringVerifier = new MyStringVerifier();
-        usernameTxtField.setInputVerifier(myStringVerifier);
+        MyNoWhiteSpaceVerifier myNoWhiteSpaceVerifier = new MyNoWhiteSpaceVerifier();
+        usernameTxtField.setInputVerifier(myNoWhiteSpaceVerifier);
         passwordTxtField.setInputVerifier(myStringVerifier);
     }
 
@@ -154,6 +157,7 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel5.setText("Username:");
 
+        usernameTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         usernameTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameTxtFieldActionPerformed(evt);
@@ -163,11 +167,16 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         jLabel6.setText("Password:");
 
+        organizationComboBox.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         organizationComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 organizationComboBoxActionPerformed(evt);
             }
         });
+
+        employeeComboBox.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        roleComboBox.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
 
         createBtn.setBackground(new java.awt.Color(51, 51, 51));
         createBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
@@ -185,13 +194,15 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
         backBtn.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         backBtn.setForeground(new java.awt.Color(255, 255, 255));
         backBtn.setText("<< Back");
-        backBtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        backBtn.setBorder(new javax.swing.border.MatteBorder(null));
         backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backBtnActionPerformed(evt);
             }
         });
+
+        passwordTxtField.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -202,7 +213,7 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
@@ -219,10 +230,10 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel6)
                                 .addComponent(jLabel5))
-                            .addGap(42, 42, 42)
+                            .addGap(30, 30, 30)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(usernameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(passwordTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(usernameTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                                .addComponent(passwordTxtField)))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -263,8 +274,8 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
                             .addComponent(usernameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel6)
                             .addComponent(passwordTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(29, 29, 29)
@@ -309,7 +320,7 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
                             break A;
                         } else {
                             for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                                flag = enterprise.getUserAccountDirectory().checkIfUsernameIsUnique(userName);
+                                flag = organization.getUserAccountDirectory().checkIfUsernameIsUnique(userName);
                                 if (flag == true) {
                                     break A;
                                 }
@@ -327,8 +338,8 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
 
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         try {
-            String userName = usernameTxtField.getText();
-            String password = String.valueOf(passwordTxtField.getPassword());
+            String userName = usernameTxtField.getText().trim();
+            String password = String.valueOf(passwordTxtField.getPassword()).trim();
             if (!userName.isEmpty() && !password.isEmpty()) {
                 Organization organization = (Organization) organizationComboBox.getSelectedItem();
                 Person person = (Person) employeeComboBox.getSelectedItem();
@@ -342,12 +353,15 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
                 } else {
                     JOptionPane.showMessageDialog(null, "Username already exist. Please try with another username.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else {
+            }
+            else {
                 JOptionPane.showMessageDialog(null, "Please enter appropriate values.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please enter appropriate values", "Error", JOptionPane.ERROR_MESSAGE);
         }
+         
     }//GEN-LAST:event_createBtnActionPerformed
 
 
